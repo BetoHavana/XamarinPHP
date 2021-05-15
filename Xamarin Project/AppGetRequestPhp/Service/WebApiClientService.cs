@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -18,7 +19,7 @@ namespace AppGetRequestPhp.Service
             var client = new HttpClient();
             client.BaseAddress = urlBase;
 
-            HttpResponseMessage response = await client.GetAsync($"{requestUri}{stParams}");
+            HttpResponseMessage response = await client.GetAsync(requestUri+stParams);
 
             if (response.IsSuccessStatusCode)
             {
@@ -44,7 +45,7 @@ namespace AppGetRequestPhp.Service
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("test " + json);
+                Console.WriteLine("GET " + json);
                 return JsonConvert.DeserializeObject<T>(json);
             }
             else
@@ -53,6 +54,73 @@ namespace AppGetRequestPhp.Service
             }
         }
 
+        public async Task<T> executeRequestPost<T>(object objectParams)
+        {
+            string requestUri = "/Unity/?";
+            //string requestUri = "/server/?";
 
+            var client = new HttpClient();
+            client.BaseAddress = urlBase;
+
+            string jsonData = JsonConvert.SerializeObject(objectParams);
+
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(requestUri, content).ConfigureAwait(false);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("POST " + json);
+                return JsonConvert.DeserializeObject<T>(json);
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+        public async Task<T> executeRequestDelete<T>(String stParams)
+        {
+            string requestUri = "/Unity/?";
+            //string requestUri = "/server/?";
+            var client = new HttpClient();
+            client.BaseAddress = urlBase;
+
+            HttpResponseMessage response = await client.DeleteAsync($"{requestUri}{stParams}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("DELETE " + json);
+                return JsonConvert.DeserializeObject<T>(json);
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+        public async Task<T> executeRequestPut<T>(object objectParams)
+        {
+            string requestUri = "/Unity/?";
+            //string requestUri = "/server/?";
+
+            var client = new HttpClient();
+            client.BaseAddress = urlBase;
+
+            string jsonData = JsonConvert.SerializeObject(objectParams);
+
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PutAsync(requestUri, content).ConfigureAwait(false);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("PUT " + json);
+                return JsonConvert.DeserializeObject<T>(json);
+            }
+            else
+            {
+                return default(T);
+            }
+        }
     }
 }

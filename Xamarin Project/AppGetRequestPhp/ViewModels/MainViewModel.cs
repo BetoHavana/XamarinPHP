@@ -7,13 +7,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace AppGetRequestPhp.ViewModels
 {
-    public class MainViewModel: ViewModelBase
+    public class MainViewModel: INotifyPropertyChanged
     {
-        WebApiClientService webApi = new WebApiClientService();
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        public void RaisePropetyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        WebApiClientService webApi = new WebApiClientService();
+         
         private ObservableCollection<EmpleadoModel> listaEmpleados;
         public ObservableCollection<EmpleadoModel> ListaEmpleados
         {
@@ -52,7 +61,23 @@ namespace AppGetRequestPhp.ViewModels
             get { return modelo; }
             set { modelo = value; RaisePropetyChanged(); }
         }
+        private string id;
+        public string Id
+        {
+            get { return id; }
+            set { id = value; RaisePropetyChanged(); }
+        }
 
+        public MainViewModel()
+        {
+            ConsultaListaEmpleadosGetCommand = new Command(async () => await ConsultaListaEmpleadosGet());
+            ConsultaListaAutosGetCommand = new Command(async () => await ConsultaListaAutosGet());
+            ConsultaListaAutosPostCommand = new Command(async () => await ConsultaListaAutosPost());
+            ConsultaListaAutosPutCommand = new Command(async () => await ConsultaListaAutosPut());
+            ConsultaListaAutosDeleteCommand = new Command(async () => await ConsultaListaAutosDelete());
+        }
+
+        public ICommand ConsultaListaEmpleadosGetCommand { get; set; }
         public async Task ConsultaListaEmpleadosGet()
         {
             string stParamsGet = $"username={user}&password={pass}";
@@ -60,23 +85,37 @@ namespace AppGetRequestPhp.ViewModels
             ListaEmpleados = await webApi.executeRequestGet<ObservableCollection<EmpleadoModel>>(stParamsGet);
         }
 
-        public ICommand ConsultaListaEmpleadosGetCommand { get; set; }
-
-
-        public MainViewModel()
-        {
-            ConsultaListaEmpleadosGetCommand = new Command(async () => await ConsultaListaEmpleadosGet());
-            ConsultaListaAutosGetCommand = new Command(async () => await ConsultaListaAutosGet());
-        }
-
+        public ICommand ConsultaListaAutosGetCommand { get; set; }
         public async Task ConsultaListaAutosGet()
         {
             string stParamsGet = $"placa={placa}&modelo={modelo}";
 
             ListaAutos = await webApi.executeRequestGetAuto<ObservableCollection<EmpleadoModel>>(stParamsGet);
         }
+        
+        public ICommand ConsultaListaAutosPostCommand { get; set; }
+        public async Task ConsultaListaAutosPost()
+        {
+            var paramsPost = new { placa = Placa, modelo = Modelo};
 
-        public ICommand ConsultaListaAutosGetCommand { get; set; }
+            ListaAutos = await webApi.executeRequestPost<ObservableCollection<EmpleadoModel>>(paramsPost);
+        }
+
+        public ICommand ConsultaListaAutosPutCommand { get; set; }
+        public async Task ConsultaListaAutosPut()
+        {
+            var paramsPost = new { placa = Placa, modelo = Modelo, id= Id };
+
+            ListaAutos = await webApi.executeRequestPut<ObservableCollection<EmpleadoModel>>(paramsPost);
+        }
+
+        public ICommand ConsultaListaAutosDeleteCommand { get; set; }
+        public async Task ConsultaListaAutosDelete()
+        {
+            string stParamsGet = $"id={id}";
+
+            ListaAutos = await webApi.executeRequestDelete<ObservableCollection<EmpleadoModel>>(stParamsGet);
+        }
 
     }
 }
