@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsAppAPI.View.QRScan"
+             xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+    <!--<ContentPage.Content>
+        <Grid>
+            <zxing:ZXingScannerView
+                x:Name="ScanView"
+                OnScanResult="ScanView_OnScanResult"
+                IsScanning="True"
+                WidthRequest="300"
+                HeightRequest="300"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand">
+            </zxing:ZXingScannerView>
+            <zxing:ZXingDefaultOverlay TopText="Alinea el QR con el recuadro"></zxing:ZXingDefaultOverlay>
+        </Grid>
+    </ContentPage.Content>-->
+
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="Barcode Sample" HorizontalTextAlignment="Center" TextColor="White" FontSize="36" />
+        </Frame>
+        <Label x:Name="scanResultText" />
+        <zxing:ZXingScannerView IsScanning="True" OnScanResult="ZXingScannerView_OnScanResult" />
+    </StackLayout>
+</ContentPage>

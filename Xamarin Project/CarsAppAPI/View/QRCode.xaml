@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsAppAPI.View.QRCode"
+             xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+
+    <!--<zxing:ZXingBarcodeImageView
+        IsVisible ="True"
+        x:Name= "QRCodeView"
+        BarcodeFormat = "QRCodeView"
+        HeightRequest ="300"
+        WidthRequest ="300"
+        BarcodeValue="test">
+        <zxing:ZXingBarcodeImageView.BarcodeOptions>
+            <zxcm:EncodingOptions Width="300" Height="300"/>
+        </zxing:ZXingBarcodeImageView.BarcodeOptions>
+    </zxing:ZXingBarcodeImageView>-->
+    
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="Barcode Sample" HorizontalTextAlignment="Center" TextColor="White" FontSize="36" />
+        </Frame>
+        <zxing:ZXingBarcodeImageView BarcodeFormat="QR_CODE" BarcodeValue="TE AMAMOS POLAF" WidthRequest="500" HeightRequest="500">
+            <zxing:ZXingBarcodeImageView.BarcodeOptions>
+                <zxcm:EncodingOptions Height="500" Width="500" />
+            </zxing:ZXingBarcodeImageView.BarcodeOptions>
+        </zxing:ZXingBarcodeImageView>
+    </StackLayout>
+</ContentPage>

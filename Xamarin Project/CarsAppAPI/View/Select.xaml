@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarsAppAPI.View.Select"
+             xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
+    
+    <ContentPage.BindingContext>
+        <viewModel:MainViewModel></viewModel:MainViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Entry
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="False"
+                    Placeholder="Placa"
+                    PlaceholderColor="Gray"
+                    TextColor="Black"
+                    Text="{Binding Placa}"
+                    FontAttributes="Bold"
+                    FontSize="Caption"
+                 />
+                <Entry
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="False"
+                    Placeholder="Modelo"
+                    PlaceholderColor="Gray"
+                    TextColor="Black"
+                    Text="{Binding Modelo}"
+                    FontAttributes="Bold"
+                    FontSize="Caption"
+                 />
+                <Button Text="SELECT AUTO" Command="{Binding ConsultaListaAutosGetCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
+                <ListView ItemsSource="{Binding ListaAutos}" 
+                      Header="Data" 
+                      Footer="End data" 
+                      RowHeight="30">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label  Text="{Binding id}"  ></Label>
+                                        <Label  Text="{Binding placa}"  Grid.Column="1"></Label>
+                                        <Label  Text="{Binding modelo}" Grid.Column="2"></Label>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label BackgroundColor="Blue" HeightRequest="30"></Label>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
