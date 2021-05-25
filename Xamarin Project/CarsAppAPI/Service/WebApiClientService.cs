@@ -47,7 +47,11 @@ namespace CarsAppAPI.Service
 
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             Console.WriteLine("content " + content);
-            HttpResponseMessage response = await client.PostAsync(requestUri, content).ConfigureAwait(false);
+            Console.WriteLine("Body" + jsonData.ToString());
+            HttpResponseMessage response = await client.PostAsync(urlBase+requestUri, content);
+            Console.WriteLine("Codigo: " + response.IsSuccessStatusCode);
+            var data = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("POST " + data);
 
             if (response.IsSuccessStatusCode)
             {

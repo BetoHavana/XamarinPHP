@@ -94,7 +94,7 @@ namespace CarsAppAPI.ViewModels
         public ICommand LoginCommand { get; set; }
         public async Task Login()
         {
-            var paramsPost = new { email = Email, pass = Pass };
+            var paramsPost = new { email = Email, password = Pass };
 
             ListaEmpleados = await webApi.executeRequestPostLogin<ObservableCollection<EmpleadoModel>>(paramsPost);
         }
