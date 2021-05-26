@@ -23,8 +23,8 @@ namespace CarsAppAPI.ViewModels
 
         WebApiClientService webApi = new WebApiClientService();
          
-        private ObservableCollection<EmpleadoModel> listaEmpleados;
-        public ObservableCollection<EmpleadoModel> ListaEmpleados
+        private EmpleadoModel listaEmpleados;
+        public EmpleadoModel ListaEmpleados
         {
             get { return listaEmpleados; }
             set { listaEmpleados = value; RaisePropetyChanged(); }
@@ -96,7 +96,7 @@ namespace CarsAppAPI.ViewModels
         {
             var paramsPost = new { email = Email, password = Pass };
 
-            ListaEmpleados = await webApi.executeRequestPostLogin<ObservableCollection<EmpleadoModel>>(paramsPost);
+            ListaEmpleados = await webApi.executeRequestPostLogin<EmpleadoModel>(paramsPost);
         }
 
         public ICommand ConsultaListaEmpleadosGetCommand { get; set; }
@@ -104,7 +104,7 @@ namespace CarsAppAPI.ViewModels
         {
             string stParamsGet = $"username={user}&password={pass}";
 
-            ListaEmpleados = await webApi.executeRequestGet<ObservableCollection<EmpleadoModel>>(stParamsGet);
+            ListaEmpleados = await webApi.executeRequestGet<EmpleadoModel>(stParamsGet);
         }
 
         public ICommand ConsultaListaAutosGetCommand { get; set; }
