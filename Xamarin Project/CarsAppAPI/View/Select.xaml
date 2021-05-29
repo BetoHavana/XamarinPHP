@@ -32,8 +32,8 @@
                     FontAttributes="Bold"
                     FontSize="Caption"
                  />
-                <Button Text="SELECT AUTO" Command="{Binding ConsultaListaAutosGetCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
-                <ListView ItemsSource="{Binding ListaAutos}" 
+                <Button Text="GET AUTOS" Command="{Binding ConsultaListaAutosGetCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
+                <ListView ItemsSource="{Binding ListaAuto.cars_pagination.data}" 
                       Header="Data" 
                       Footer="End data" 
                       RowHeight="30">
@@ -48,15 +48,18 @@
                                             <ColumnDefinition></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Label  Text="{Binding id}"  ></Label>
-                                        <Label  Text="{Binding placa}"  Grid.Column="1"></Label>
-                                        <Label  Text="{Binding modelo}" Grid.Column="2"></Label>
+                                        <Label  Text="{Binding license_plate}"  Grid.Column="1"></Label>
+                                        <Label  Text="{Binding model}" Grid.Column="2"></Label>
                                     </Grid>
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Label BackgroundColor="Blue" HeightRequest="30"></Label>
+                <!--<Label  Text="{Binding Data.cars_pagination.data[0].id}"  ></Label>
+                <Label  Text="{Binding Data.cars_pagination.data[0].license_plate}"  Grid.Column="1"></Label>
+                <Label  Text="{Binding Data.cars_pagination.data[0].model}" Grid.Column="2"></Label>
+                <Label BackgroundColor="Blue" HeightRequest="30"></Label>-->
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
