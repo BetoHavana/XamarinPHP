@@ -3,7 +3,6 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace CarsAppAPI.Service
 {
@@ -20,12 +19,12 @@ namespace CarsAppAPI.Service
             var client = new HttpClient();
             client.BaseAddress = urlBase;
 
-            HttpResponseMessage response = await client.GetAsync(requestUri+stParams);
+            HttpResponseMessage response = await client.GetAsync(requestUri + stParams);
 
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("test "+json);
+                Console.WriteLine("test " + json);
                 return JsonConvert.DeserializeObject<T>(json);
             }
             else
@@ -48,7 +47,7 @@ namespace CarsAppAPI.Service
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             Console.WriteLine("content " + content);
             Console.WriteLine("Body" + jsonData.ToString());
-            HttpResponseMessage response = await client.PostAsync(urlBase+requestUri, content);
+            HttpResponseMessage response = await client.PostAsync(urlBase + requestUri, content);
             Console.WriteLine("Codigo: " + response.IsSuccessStatusCode);
             var data = await response.Content.ReadAsStringAsync();
             Console.WriteLine("POST " + data);
@@ -62,6 +61,27 @@ namespace CarsAppAPI.Service
             else
             {
                 return default(T);
+            }
+        }
+
+        public async Task executeRequestListCars()
+        {
+            string requestUri = "/api/v1/cars";
+            string token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9ydWZmc3N0dWRpb3MuY29tXC9hcGlfY2Fycm9zXC9wdWJsaWNcL2FwaVwvdjFcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjIyMjQzMjE4LCJleHAiOjE2MjI0NTkyMTgsIm5iZiI6MTYyMjI0MzIxOCwianRpIjoic0d5enhkYmhHTk9HUXRXQiIsInN1YiI6MywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.1gMUWUTr-cTGYpFlOHzlO1siwnNPmfIRg6lFHeVmAaU";
+
+            HttpClient cliente = new HttpClient();
+            //cliente.DefaultRequestHeaders.Add("Accept", "application/json");
+            cliente.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+            var response = await cliente.GetAsync(urlBase+requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("List of cars: " + json);
+            }
+            else
+            {
             }
         }
 
@@ -115,7 +135,7 @@ namespace CarsAppAPI.Service
             string requestUri = "/Unity/?";
             //string requestUri = "/server/?";
             var client = new HttpClient();
-            
+
             client.BaseAddress = urlBase;
 
             HttpResponseMessage response = await client.DeleteAsync($"{requestUri}{stParams}");

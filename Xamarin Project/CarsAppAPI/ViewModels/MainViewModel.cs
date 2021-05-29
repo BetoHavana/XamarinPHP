@@ -1,9 +1,6 @@
 ﻿using CarsAppAPI.Models;
 using CarsAppAPI.Service;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -96,7 +93,8 @@ namespace CarsAppAPI.ViewModels
         {
             var paramsPost = new { email = Email, password = Pass };
 
-            ListaEmpleados = await webApi.executeRequestPostLogin<EmpleadoModel>(paramsPost);
+            ///ListaEmpleados = await webApi.executeRequestPostLogin<EmpleadoModel>(paramsPost);
+            await webApi.executeRequestListCars();
         }
 
         public ICommand ConsultaListaEmpleadosGetCommand { get; set; }
