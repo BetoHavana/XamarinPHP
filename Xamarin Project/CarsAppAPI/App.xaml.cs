@@ -9,8 +9,10 @@ namespace CarsAppAPI
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            //MainPage = new MainPage();
+            //MainPage = new NavigationPage(new CarsAppAPI.Master());
+            NavigationPage navPage = new NavigationPage(new CarsAppAPI.View.login());
+            MainPage = navPage;
         }
 
         protected override void OnStart()

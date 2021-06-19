@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModel="clr-namespace:AppGetRequestPhp.ViewModels"
+             xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
              x:Class="CarsAppAPI.Detail"
              Title="Detail">
     
@@ -35,11 +35,13 @@
             <Style x:Key="stlMainFrame" TargetType="Frame">
                 <Setter Property="TranslationY"    Value="-33"/>
                 <Setter Property="HeightRequest"   Value="228"/>
-                <Setter Property="HasShadow"       Value="False" />
-                <!--<Setter Property="TranslationY"    Value="{OnPlatform iOS='150', Android='-33'}"/>
+                    <Setter Property="HasShadow"       Value="False" />
+
+                    <!--<Setter Property="TranslationY"    Value="{OnPlatform iOS='150', Android='-33'}"/>
                 <Setter Property="HeightRequest"   Value="{OnPlatform iOS='120', Android='228'}"/>
                 <Setter Property="HasShadow"       Value="False" />-->
             </Style>
+            <!--<OnPlatform x:TypeArguments="Font" Android="30" iOS="40" WinPhone="20" x:Key="TitleFontSize" />-->
 
         </ResourceDictionary>
     </ContentPage.Resources>

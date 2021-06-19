@@ -28,11 +28,12 @@
                     Placeholder="Password"
                     PlaceholderColor="Gray"
                     TextColor="Black"
-                    Text="{Binding Pass}"
+                    Text="{Binding Password}"
                     FontAttributes="Bold"
                     FontSize="Caption"
                  />
-                <Button Text="SELECT AUTO" Command="{Binding LoginCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
+                <Button Text="LOGIN" Command="{Binding LoginCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
+                <!--<Button Text="LOGIN" Clicked="Button_Clicked" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>-->
                 <Label  Text="{Binding ListaEmpleados.token}"  ></Label>
                 <ListView ItemsSource="{Binding ListaAutos}" 
                       Header="Data" 

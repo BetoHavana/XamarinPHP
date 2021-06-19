@@ -1,29 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
-             xmlns:appgetrequestphp="clr-namespace:CarsAppAPI"
              x:Class="CarsAppAPI.MainPage">
-    <MasterDetailPage.Master>
-        <ContentPage Title="Master">
+
+    <ContentPage.BindingContext>
+        <viewModel:MainViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
             <StackLayout>
-                <Label Text="CRUD" FontSize="25"/>
-                <StackLayout Orientation="Vertical">
-                    <ListView x:Name="lsvmenu">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Label Text="{Binding Titulo}" FontSize="20" TextColor="Black"/>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackLayout>
+                <Entry
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="False"
+                    Placeholder="eMail"
+                    PlaceholderColor="Gray"
+                    TextColor="Black"
+                    Text="{Binding Email}"
+                    FontAttributes="Bold"
+                    FontSize="Caption"
+                 />
+                <Entry
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="False"
+                    Placeholder="Password"
+                    PlaceholderColor="Gray"
+                    TextColor="Black"
+                    Text="{Binding Password}"
+                    FontAttributes="Bold"
+                    FontSize="Caption"
+                 />
+                <Button Text="LOGIN" Command="{Binding LoginCommand }" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
+                <Label  Text="{Binding ListaEmpleados.token}"  ></Label>
+                <ListView ItemsSource="{Binding ListaAutos}" 
+                      Header="Data" 
+                      Footer="End data" 
+                      RowHeight="30">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label  Text="{Binding token}"  ></Label>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label BackgroundColor="Blue" HeightRequest="30"></Label>
             </StackLayout>
-        </ContentPage>
-    </MasterDetailPage.Master>
-    <MasterDetailPage.Detail>
-        <appgetrequestphp:Detail></appgetrequestphp:Detail>
-    </MasterDetailPage.Detail>
-</MasterDetailPage>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
 
