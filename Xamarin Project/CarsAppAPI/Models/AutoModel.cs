@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +7,7 @@ namespace CarsAppAPI.Models
     public class AutoModel
     {
         public Cars_Pagination cars_pagination { get; set; }
+        public Car car { get; set; }
     }
 
     public class Cars_Pagination
@@ -26,6 +27,14 @@ namespace CarsAppAPI.Models
     }
 
     public class Datum
+    {
+        public int id { get; set; }
+        public string license_plate { get; set; }
+        public string model { get; set; }
+        public DateTime created_at { get; set; }
+        public DateTime updated_at { get; set; }
+    }
+    public class Car
     {
         public int id { get; set; }
         public string license_plate { get; set; }
