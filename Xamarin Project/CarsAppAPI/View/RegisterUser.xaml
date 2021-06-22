@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CarsAppAPI.View.Select"
+             x:Class="CarsAppAPI.View.RegisterUser"
              xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
-    
     <ContentPage.BindingContext>
         <viewModel:MainViewModel></viewModel:MainViewModel>
     </ContentPage.BindingContext>
@@ -14,10 +13,10 @@
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     IsPassword="False"
-                    Placeholder="Id"
+                    Placeholder="Nombre"
                     PlaceholderColor="Gray"
                     TextColor="Black"
-                    Text="{Binding Id}"
+                    Text="{Binding Name}"
                     FontAttributes="Bold"
                     FontSize="Caption"
                  />
@@ -25,10 +24,10 @@
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     IsPassword="False"
-                    Placeholder="Placa"
+                    Placeholder="Email"
                     PlaceholderColor="Gray"
                     TextColor="Black"
-                    Text="{Binding Placa}"
+                    Text="{Binding Email}"
                     FontAttributes="Bold"
                     FontSize="Caption"
                  />
@@ -36,18 +35,26 @@
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     IsPassword="False"
-                    Placeholder="Modelo"
+                    Placeholder="Password"
                     PlaceholderColor="Gray"
                     TextColor="Black"
-                    Text="{Binding Modelo}"
+                    Text="{Binding Password}"
                     FontAttributes="Bold"
                     FontSize="Caption"
                  />
-               
-                
-                
-                <Button Text="GET AUTOS" Command="{Binding ConsultaListaAutosGetCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
-                <ListView ItemsSource="{Binding ListaAuto.cars_pagination.data}" 
+                <Entry
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="False"
+                    Placeholder="Password confirm"
+                    PlaceholderColor="Gray"
+                    TextColor="Black"
+                    Text="{Binding PasswordConfirmation}"
+                    FontAttributes="Bold"
+                    FontSize="Caption"
+                 />
+                <Button Text="Register" Command="{Binding RegisterUserCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
+                <!--<ListView ItemsSource="{Binding ListaAuto.cars_pagination.data}" 
                       Header="Data" 
                       Footer="End data" 
                       RowHeight="30">
@@ -69,16 +76,15 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
-                <Label  Text="{Binding Data.cars_pagination.data[0].id}"  ></Label>
-                <Label  Text="{Binding Data.cars_pagination.data[0].license_plate}"  Grid.Column="1"></Label>
-                <Label  Text="{Binding Data.cars_pagination.data[0].model}" Grid.Column="2"></Label>
-                <Label BackgroundColor="Blue" HeightRequest="30"></Label>
-
-                <!--<Label  Text="{Binding ListaAuto.car.id}"  ></Label>
-                <Label  Text="{Binding ListaAuto.car.license_plate}"  Grid.Column="1"></Label>
-                <Label  Text="{Binding ListaAuto.car.model}" Grid.Column="2"></Label>
-                <Label BackgroundColor="Blue" HeightRequest="30"></Label>-->
+                </ListView>-->
+                <Label  Text="{Binding ListaRegistro.user.id}"/>
+                <Label  Text="{Binding ListaRegistro.user.name}"/>
+                <Label  Text="{Binding ListaRegistro.user.email}"/>
+                <Label  Text="{Binding ListaRegistro.user.created_at}"/>
+                <Label BackgroundColor="Blue" HeightRequest="30"/>
+                <Label  Text="{Binding ListaRegistro.errors.email[0]}"/>
+                <Label  Text="{Binding ListaRegistro.errors.password[0]}"/>
+                <Label  Text="{Binding ListaRegistro.errors.name[0]}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

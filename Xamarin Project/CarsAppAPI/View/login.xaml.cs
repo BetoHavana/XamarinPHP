@@ -13,7 +13,6 @@ namespace CarsAppAPI.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class login : ContentPage
     {
-        public String token;
         public login()
         {
             InitializeComponent();

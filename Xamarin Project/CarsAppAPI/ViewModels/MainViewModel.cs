@@ -28,6 +28,7 @@ namespace CarsAppAPI.ViewModels
         Uri urlBase = new Uri("https://ruffsstudios.com/api_carros/public");
         WebApiClientService webApi = new WebApiClientService();
 
+        #region constructors
         public MainViewModel(INavigation navigation)
         {
             this.Navigation = navigation;
@@ -38,12 +39,18 @@ namespace CarsAppAPI.ViewModels
             LoginCommand = new Command(async () => await Login());
             RegisterUserCommand = new Command(async () => await RegisterUser());
             GetAutoByIdCommand = new Command(async () => await GetAutoById());
+
         }
         public MainViewModel()
         {
             
         }
-
+        Page page;
+        public MainViewModel(Page page)
+        {
+            this.page = page;
+        }
+        #endregion
 
         #region BindingVariables
 
@@ -163,17 +170,12 @@ namespace CarsAppAPI.ViewModels
                 ListaEmpleados = JsonConvert.DeserializeObject<LoginModel>(json);
                 //await SecureStorage.SetAsync("token", ListaEmpleados.token);
                 //var myValue = await SecureStorage.GetAsync("token");
-
-                login loginButton = new login();
-                String token = ListaEmpleados.token;
+                 Token = ListaEmpleados.token;
                 //await Application.Current.MainPage.Navigation.PushAsync(new QRCode());
-                if (token != null)
+                if (Token != null)
                 {
                     await Navigation.PushAsync(new Master());
                 }
-                
-                //loginButton.thereIsToken();
-                //Console.WriteLine("Should Open ");
 
             }
         }
@@ -183,14 +185,10 @@ namespace CarsAppAPI.ViewModels
         {
             var paramsPost = new { name = Name, email = Email, password = Password, password_confirmation = PasswordConfirmation };
             string requestUri = "/api/v1/auth/create";
-            string token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvcnVmZnNzdHVkaW9z" +
-               "LmNvbVwvYXBpX2NhcnJvc1wvcHVibGljXC9hcGlcL3YxXC9hdXRoXC9sb2dpbiIsImlhdCI6MTYyMjI2MDk2MywiZX" +
-               "hwIjoxNjIyNDc2OTYzLCJuYmYiOjE2MjIyNjA5NjMsImp0aSI6IkM2YTRlVUlmc3NSUFEwSTkiLCJzdWIiOjEsInByd" +
-               "iI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk" +
-               "3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.r8KPFQo4GXZhsgk7fhGU_KDBZYOnZ0FMzDoKAcTU2LY";
 
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            Console.WriteLine("My Token "+ Token);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
             client.BaseAddress = urlBase;
             string jsonData = JsonConvert.SerializeObject(paramsPost);
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -203,12 +201,15 @@ namespace CarsAppAPI.ViewModels
                 var json = await response.Content.ReadAsStringAsync();
                 Console.WriteLine("POST Register " + json);
                 ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
+                //await page.DisplayAlert("Registered", "", "Ok");
+                await App.Current.MainPage.DisplayAlert("Registered", "", "ok");
             }
             else
             {
                 var json = await response.Content.ReadAsStringAsync();
                 Console.WriteLine("422 Register " + json);
                 ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
+                await App.Current.MainPage.DisplayAlert("An error ocurred", "", "ok");
             }
         }
 
@@ -226,11 +227,6 @@ namespace CarsAppAPI.ViewModels
         public async Task ConsultaListaAutosGet()
         {
             string requestUri = "/api/v1/cars";
-            /*string token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvcnVmZnNzdHVkaW9z" +
-                "LmNvbVwvYXBpX2NhcnJvc1wvcHVibGljXC9hcGlcL3YxXC9hdXRoXC9sb2dpbiIsImlhdCI6MTYyMjI2MDk2MywiZX" +
-                "hwIjoxNjIyNDc2OTYzLCJuYmYiOjE2MjIyNjA5NjMsImp0aSI6IkM2YTRlVUlmc3NSUFEwSTkiLCJzdWIiOjEsInByd" +
-                "iI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk" +
-                "3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.r8KPFQo4GXZhsgk7fhGU_KDBZYOnZ0FMzDoKAcTU2LY";*/
             Console.WriteLine("Token: " + Token);
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -251,14 +247,9 @@ namespace CarsAppAPI.ViewModels
         {
             string stParamsGet = $"id={Id}";
             string requestUri = "/api/v1/cars/1?";
-            string token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvcnVmZnNzdHVkaW9z" +
-                "LmNvbVwvYXBpX2NhcnJvc1wvcHVibGljXC9hcGlcL3YxXC9hdXRoXC9sb2dpbiIsImlhdCI6MTYyMjI2MDk2MywiZX" +
-                "hwIjoxNjIyNDc2OTYzLCJuYmYiOjE2MjIyNjA5NjMsImp0aSI6IkM2YTRlVUlmc3NSUFEwSTkiLCJzdWIiOjEsInByd" +
-                "iI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk" +
-                "3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.r8KPFQo4GXZhsgk7fhGU_KDBZYOnZ0FMzDoKAcTU2LY";
             Console.WriteLine("params :" + stParamsGet);
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
             var response = await client.GetAsync(urlBase+requestUri + stParamsGet);
             Console.WriteLine("Codigo: " + response.IsSuccessStatusCode);
             if (response.IsSuccessStatusCode)
