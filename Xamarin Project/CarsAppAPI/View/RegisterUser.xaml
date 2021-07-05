@@ -24,7 +24,7 @@
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     IsPassword="False"
-                    Placeholder="Email"
+                    Placeholder="e-mail"
                     PlaceholderColor="Gray"
                     TextColor="Black"
                     Text="{Binding Email}"
@@ -35,7 +35,7 @@
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     IsPassword="False"
-                    Placeholder="Password"
+                    Placeholder="Contraseña"
                     PlaceholderColor="Gray"
                     TextColor="Black"
                     Text="{Binding Password}"
@@ -46,14 +46,14 @@
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     IsPassword="False"
-                    Placeholder="Password confirm"
+                    Placeholder="Confirma Contraseña"
                     PlaceholderColor="Gray"
                     TextColor="Black"
                     Text="{Binding PasswordConfirmation}"
                     FontAttributes="Bold"
                     FontSize="Caption"
                  />
-                <Button Text="Register" Command="{Binding RegisterUserCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
+                <Button Text="Registrar" Command="{Binding RegisterUserCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
                 <!--<ListView ItemsSource="{Binding ListaAuto.cars_pagination.data}" 
                       Header="Data" 
                       Footer="End data" 
@@ -85,6 +85,7 @@
                 <Label  Text="{Binding ListaRegistro.errors.email[0]}"/>
                 <Label  Text="{Binding ListaRegistro.errors.password[0]}"/>
                 <Label  Text="{Binding ListaRegistro.errors.name[0]}"/>
+                <Button Text="Log in" Command="{Binding LoginCommand}"></Button>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -39,7 +39,7 @@ namespace CarsAppAPI
             MenuPagina pag6 = new MenuPagina() { Titulo = "QRCodeScan", Pagina = typeof(QRScan) };
             MiMenu.Add(pag6);
 
-            MenuPagina pag7 = new MenuPagina() { Titulo = "Login", Pagina = typeof(login) };
+            MenuPagina pag7 = new MenuPagina() { Titulo = "Login", Pagina = typeof(Login) };
             MiMenu.Add(pag7);
 
             MenuPagina pag8 = new MenuPagina() { Titulo = "Register", Pagina = typeof(RegisterUser) };

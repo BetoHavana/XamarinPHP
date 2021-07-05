@@ -11,12 +11,17 @@ using CarsAppAPI.ViewModels;
 namespace CarsAppAPI.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class login : ContentPage
+    public partial class Login : ContentPage
     {
-        public login()
+        public Login()
         {
             InitializeComponent();
             BindingContext = new  MainViewModel(Navigation);
+        }
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            //await Shell.Current.GoToAsync("//login/registration");
+            await Shell.Current.GoToAsync($"//{nameof(RegisterUser)}");
         }
 
     }

@@ -174,7 +174,11 @@ namespace CarsAppAPI.ViewModels
                 //await Application.Current.MainPage.Navigation.PushAsync(new QRCode());
                 if (Token != null)
                 {
-                    await Navigation.PushAsync(new Master());
+                    App.IsUserLoggedIn = true;
+                    //await Navigation.PushAsync(new Master());
+                    //await Navigation.PushAsync(new AppShell());
+                    await App.Current.MainPage.DisplayAlert("Inicio exitoso", "", "ok");
+                    await Shell.Current.GoToAsync("//main");
                 }
 
             }

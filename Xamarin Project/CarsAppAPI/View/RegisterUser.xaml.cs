@@ -12,12 +12,13 @@ namespace CarsAppAPI.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterUser : ContentPage
     {
-        MainViewModel page;
+        //MainViewModel page;
         public RegisterUser()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel(Navigation);
-            page = new MainViewModel(this);
+            /*BindingContext = new MainViewModel(Navigation);
+            page = new MainViewModel(this);*/
+            this.BindingContext = new RegisterViewModel();
         }
     }
 }

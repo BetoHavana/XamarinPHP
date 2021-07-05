@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:CarsAppAPI.View"
+    x:Class="CarsAppAPI.View.AppShell">
+
+    
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="Black">
+                <Image Aspect="AspectFill"
+                       Source="header.jpg"
+                       Opacity="0.6"/>
+                <Label Text="The Car Finder"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <!--<ShellItem Route="LoginPage"
+               Title="Login"
+               Shell.FlyoutBehavior="Disabled">
+        <ShellContent ContentTemplate="{DataTemplate local:login}"/>
+    </ShellItem>-->
+
+    <!-- QUE ES TAB BAR? -->
+    <TabBar>
+        <ShellContent Route="StartupPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:StartupPage}" />
+    </TabBar>
+
+    <ShellItem Route="main"
+               Title="Main Page">
+        <ShellContent ContentTemplate="{DataTemplate local:MyMainPage}"/>
+    </ShellItem>
+    <MenuItem Text="Log Out"  Clicked="OnLogOutClicked">
+    </MenuItem>
+
+    <!--<FlyoutItem Title="Registro"
+                Route="places"
+                >
+         <ShellContent Title="Register"
+                          ContentTemplate="{DataTemplate local:RegisterUser}"
+                          Route="RegisterUser">
+         </ShellContent>
+    </FlyoutItem>-->
+
+    <TabBar>
+    <ShellContent Route="Login"
+                  Shell.FlyoutBehavior="Disabled"
+                  ContentTemplate="{DataTemplate local:Login}"/>
+    </TabBar>
+    <TabBar>
+        <ShellContent Title="Register"
+                      Shell.FlyoutBehavior="Disabled"
+                          ContentTemplate="{DataTemplate local:RegisterUser}"
+                          Route="RegisterUser">
+         </ShellContent>
+    </TabBar>
+</Shell>

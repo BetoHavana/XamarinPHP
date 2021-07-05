@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CarsAppAPI.View.login"
+             x:Class="CarsAppAPI.View.Login"
              xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
 
     <ContentPage.BindingContext>
@@ -9,12 +9,22 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
+            <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+                <Image Aspect="AspectFill"
+                       Source="header.jpg"
+                       Opacity="0.6"/>
+                <Label Text="The Car Finder"
+                       TextColor="Black"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       />
                 <Entry
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     IsPassword="False"
-                    Placeholder="eMail"
+                    Placeholder="e-mail"
                     PlaceholderColor="Gray"
                     TextColor="Black"
                     Text="{Binding Email}"
@@ -25,16 +35,26 @@
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     IsPassword="False"
-                    Placeholder="Password"
+                    Placeholder="Contraseña"
                     PlaceholderColor="Gray"
                     TextColor="Black"
                     Text="{Binding Password}"
                     FontAttributes="Bold"
                     FontSize="Caption"
                  />
-                <Button Text="LOGIN" Command="{Binding LoginCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
+                <Button Text="Log In" Command="{Binding LoginCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
+                <Label Text="¿No estás registrado?, Registrate"
+                   x:Name="RegistrationBtn"
+                   TextColor="Blue"
+                   Margin="20"
+                   HorizontalTextAlignment="Center"
+                   TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <!--<Button Text="LOGIN" Clicked="Button_Clicked" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>-->
-                <Label  Text="{Binding ListaEmpleados.token}"  ></Label>
+                <!--<Label  Text="{Binding ListaEmpleados.token}"  ></Label>
                 <ListView ItemsSource="{Binding ListaAutos}" 
                       Header="Data" 
                       Footer="End data" 
@@ -53,8 +73,7 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
-                <Label BackgroundColor="Blue" HeightRequest="30"></Label>
+                </ListView>-->
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
