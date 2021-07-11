@@ -16,7 +16,7 @@ namespace CarsAppAPI.View
         public Login()
         {
             InitializeComponent();
-            BindingContext = new  MainViewModel(Navigation);
+            //this.BindingContext = new  MainViewModel(Navigation);
         }
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {

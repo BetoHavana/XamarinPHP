@@ -31,41 +31,28 @@ namespace CarsAppAPI.ViewModels
         #region constructors
         public MainViewModel(INavigation navigation)
         {
-            this.Navigation = navigation;
+            this.Navigation = navigation; 
+
+        }
+        public MainViewModel()
+        {
             ConsultaListaAutosGetCommand = new Command(async () => await ConsultaListaAutosGet());
             ConsultaListaAutosPostCommand = new Command(async () => await ConsultaListaAutosPost());
             ConsultaListaAutosPutCommand = new Command(async () => await ConsultaListaAutosPut());
             ConsultaListaAutosDeleteCommand = new Command(async () => await ConsultaListaAutosDelete());
             LoginCommand = new Command(async () => await Login());
-            RegisterUserCommand = new Command(async () => await RegisterUser());
             GetAutoByIdCommand = new Command(async () => await GetAutoById());
-
-        }
-        public MainViewModel()
-        {
-            
-        }
-        Page page;
-        public MainViewModel(Page page)
-        {
-            this.page = page;
         }
         #endregion
 
         #region BindingVariables
 
-        private LoginModel listaEmpleados;
-        public LoginModel ListaEmpleados
+        StaticConstants cts = new StaticConstants();
+        private LoginModel loginResponsetList;
+        public LoginModel LoginRequestList
         {
-            get { return listaEmpleados; }
-            set { listaEmpleados = value; RaisePropetyChanged(); }
-        }
-
-        private RegisterModel listaRegistro;
-        public RegisterModel ListaRegistro
-        {
-            get { return listaRegistro; }
-            set { listaRegistro = value; RaisePropetyChanged(); }
+            get { return loginResponsetList; }
+            set { loginResponsetList = value; RaisePropetyChanged(); }
         }
 
         private AutoModel listaAuto;
@@ -94,6 +81,13 @@ namespace CarsAppAPI.ViewModels
         {
             get { return name; }
             set { name = value; RaisePropetyChanged(); }
+        }
+
+        private string email;
+        public string Email
+        {
+            get { return email; }
+            set { email = value; RaisePropetyChanged(); }
         }
 
         private string passwordConfirmation;
@@ -134,12 +128,7 @@ namespace CarsAppAPI.ViewModels
             set { token = value; RaisePropetyChanged(); }
         }
 
-        private string email;
-        public string Email
-        {
-            get { return email; }
-            set { email = value; RaisePropetyChanged(); }
-        }
+        
 
         private AutoModel data;
         public AutoModel Data
@@ -167,55 +156,24 @@ namespace CarsAppAPI.ViewModels
             {
                 var json = await response.Content.ReadAsStringAsync();
                 Console.WriteLine("POST 2 " + json);
-                ListaEmpleados = JsonConvert.DeserializeObject<LoginModel>(json);
-                //await SecureStorage.SetAsync("token", ListaEmpleados.token);
-                //var myValue = await SecureStorage.GetAsync("token");
-                 Token = ListaEmpleados.token;
-                //await Application.Current.MainPage.Navigation.PushAsync(new QRCode());
-                if (Token != null)
+                loginResponsetList = JsonConvert.DeserializeObject<LoginModel>(json);
+                cts.Token= loginResponsetList.token;
+                if (cts.Token != null)
                 {
-                    App.IsUserLoggedIn = true;
                     //await Navigation.PushAsync(new Master());
-                    //await Navigation.PushAsync(new AppShell());
                     await App.Current.MainPage.DisplayAlert("Inicio exitoso", "", "ok");
-                    await Shell.Current.GoToAsync("//main");
+                    await Shell.Current.GoToAsync("//InitialPage");
                 }
 
             }
-        }
-
-        public ICommand RegisterUserCommand { get; set; }
-        public async Task RegisterUser()
-        {
-            var paramsPost = new { name = Name, email = Email, password = Password, password_confirmation = PasswordConfirmation };
-            string requestUri = "/api/v1/auth/create";
-
-            HttpClient client = new HttpClient();
-            Console.WriteLine("My Token "+ Token);
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
-            client.BaseAddress = urlBase;
-            string jsonData = JsonConvert.SerializeObject(paramsPost);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            Console.WriteLine("content " + content);
-            Console.WriteLine("Body" + jsonData.ToString());
-            HttpResponseMessage response = await client.PostAsync(urlBase + requestUri, content);
-            Console.WriteLine("Codigo: " + response.IsSuccessStatusCode);
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("POST Register " + json);
-                ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
-                //await page.DisplayAlert("Registered", "", "Ok");
-                await App.Current.MainPage.DisplayAlert("Registered", "", "ok");
-            }
             else
             {
-                var json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("422 Register " + json);
-                ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
-                await App.Current.MainPage.DisplayAlert("An error ocurred", "", "ok");
+                await App.Current.MainPage.DisplayAlert("Usuario no encontrado", "Intenta de nuevo, " +
+                    "verificando tu usuario y contraseña", "Ok");
             }
         }
+
+        
 
         public ICommand ConsultaListaAutosPostCommand { get; set; }
         public async Task ConsultaListaAutosPost()
@@ -230,19 +188,27 @@ namespace CarsAppAPI.ViewModels
         public ICommand ConsultaListaAutosGetCommand { get; set; }
         public async Task ConsultaListaAutosGet()
         {
-            string requestUri = "/api/v1/cars";
-            Console.WriteLine("Token: " + Token);
+            string requestUri = "/api/v1/cars?page=1";
+            Console.WriteLine("Token: " + cts.Token);
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9." +
+                "eyJpc3MiOiJodHRwOlwvXC9ydWZmc3N0dWRpb3MuY29tXC9hcGlfY2Fycm9zXC9wdWJsaWNcL2FwaVwvdjFcL2F1dGhcL2xvZ2lu" +
+                "IiwiaWF0IjoxNjI1Njc2NzA4LCJleHAiOjE2MjU4OTI3MDgsIm5iZiI6MTYyNTY3NjcwOCwianRpIjoiWnZvQVMzY2VCbHR6N0VqayIs" +
+                "InN1YiI6MiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.lPYIrUEZIMO6bIXjW7MkodyE5_E5O9w7wpuggfQdzSc");
 
             var response = await client.GetAsync(urlBase + requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("List of cars: " + json);
-                ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
-                Data = JsonConvert.DeserializeObject<AutoModel>(json);
+                var res = await App.Current.MainPage.DisplayAlert("Auto localizado", "Para continuar al pago presione Pagar", "Pagar","no pagar");
+
+                if(res)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("List of cars: " + json);
+                    ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
+                    //Data = JsonConvert.DeserializeObject<AutoModel>(json);
+                }
             }
         }
 

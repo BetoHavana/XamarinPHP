@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
+    x:Class="CarsAppAPI.View.InitialPage">
+    <ContentPage.BindingContext>
+        <viewModel:MainViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+                
+                <Label Text="Busqueda de Autos"
+                       TextColor="Black"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       />
+                <Label Text="Publicidad destacada"
+                       TextColor="Black"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       />
+                <Label Text="Sobre nosotros"
+                       TextColor="Black"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       />
+                <Label Text="Datos extra"
+                       TextColor="Black"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

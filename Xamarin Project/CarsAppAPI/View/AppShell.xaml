@@ -34,9 +34,13 @@
         <ShellContent Route="StartupPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:StartupPage}" />
     </TabBar>
 
-    <ShellItem Route="main"
+    <ShellItem Route="InitialPage"
                Title="Main Page">
-        <ShellContent ContentTemplate="{DataTemplate local:MyMainPage}"/>
+        <ShellContent ContentTemplate="{DataTemplate local:InitialPage}"/>
+    </ShellItem>
+    <ShellItem Route="FindCar"
+               Title="Encuentra tu auto">
+        <ShellContent ContentTemplate="{DataTemplate local:Select}"/>
     </ShellItem>
     <MenuItem Text="Log Out"  Clicked="OnLogOutClicked">
     </MenuItem>

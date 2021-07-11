@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace CarsAppAPI.View
 {
-    public partial class MyMainPage : ContentPage
+    public partial class InitialPage : ContentPage
     {
-        public MyMainPage()
+        public InitialPage()
         {
             InitializeComponent();
         }

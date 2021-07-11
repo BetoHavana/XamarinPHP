@@ -15,6 +15,7 @@ namespace CarsAppAPI.View
         public Select()
         {
             InitializeComponent();
+            
         }
     }
 }

@@ -3,12 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarsAppAPI.View.RegisterUser"
              xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
-    <ContentPage.BindingContext>
-        <viewModel:MainViewModel></viewModel:MainViewModel>
-    </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
+            <StackLayout Padding="1,0,1,0" VerticalOptions="Center">
                 <Entry
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
