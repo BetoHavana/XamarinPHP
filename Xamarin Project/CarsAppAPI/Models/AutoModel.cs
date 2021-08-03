@@ -8,7 +8,6 @@ namespace CarsAppAPI.Models
     {
         public Cars_Pagination cars_pagination { get; set; }
         public Car car { get; set; }
-        public String response {get;set;}
     }
 
     public class Cars_Pagination

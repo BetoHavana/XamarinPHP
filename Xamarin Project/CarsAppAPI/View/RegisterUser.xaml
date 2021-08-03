@@ -4,86 +4,76 @@
              x:Class="CarsAppAPI.View.RegisterUser"
              xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Padding="1,0,1,0" VerticalOptions="Center">
-                <Entry
-                    VerticalOptions="Center"
-                    HorizontalOptions="FillAndExpand"
-                    IsPassword="False"
-                    Placeholder="Nombre"
-                    PlaceholderColor="Gray"
-                    TextColor="Black"
-                    Text="{Binding Name}"
-                    FontAttributes="Bold"
-                    FontSize="Caption"
-                 />
-                <Entry
-                    VerticalOptions="Center"
-                    HorizontalOptions="FillAndExpand"
-                    IsPassword="False"
-                    Placeholder="e-mail"
-                    PlaceholderColor="Gray"
-                    TextColor="Black"
-                    Text="{Binding Email}"
-                    FontAttributes="Bold"
-                    FontSize="Caption"
-                 />
-                <Entry
-                    VerticalOptions="Center"
-                    HorizontalOptions="FillAndExpand"
-                    IsPassword="False"
-                    Placeholder="Contraseña"
-                    PlaceholderColor="Gray"
-                    TextColor="Black"
-                    Text="{Binding Password}"
-                    FontAttributes="Bold"
-                    FontSize="Caption"
-                 />
-                <Entry
-                    VerticalOptions="Center"
-                    HorizontalOptions="FillAndExpand"
-                    IsPassword="False"
-                    Placeholder="Confirma Contraseña"
-                    PlaceholderColor="Gray"
-                    TextColor="Black"
-                    Text="{Binding PasswordConfirmation}"
-                    FontAttributes="Bold"
-                    FontSize="Caption"
-                 />
-                <Button Text="Registrar" Command="{Binding RegisterUserCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
-                <!--<ListView ItemsSource="{Binding ListaAuto.cars_pagination.data}" 
-                      Header="Data" 
-                      Footer="End data" 
-                      RowHeight="30">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Label  Text="{Binding id}"  ></Label>
-                                        <Label  Text="{Binding license_plate}"  Grid.Column="1"></Label>
-                                        <Label  Text="{Binding model}" Grid.Column="2"></Label>
-                                    </Grid>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>-->
-                <Label  Text="{Binding ListaRegistro.user.id}"/>
-                <Label  Text="{Binding ListaRegistro.user.name}"/>
-                <Label  Text="{Binding ListaRegistro.user.email}"/>
-                <Label  Text="{Binding ListaRegistro.user.created_at}"/>
-                <Label BackgroundColor="Blue" HeightRequest="30"/>
-                <Label  Text="{Binding ListaRegistro.errors.email[0]}"/>
-                <Label  Text="{Binding ListaRegistro.errors.password[0]}"/>
-                <Label  Text="{Binding ListaRegistro.errors.name[0]}"/>
-                <Button Text="Log in" Command="{Binding LoginCommand}"></Button>
-            </StackLayout>
-        </ScrollView>
+        <StackLayout Padding="20,0,20,0">
+            <!--<ScrollView>
+                <StackLayout>-->
+                    <Label Text="Registro" FontSize="Title"></Label>
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="False"
+                        Placeholder="Nombre"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Text="{Binding Name}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="name"
+                     />
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="False"
+                        Placeholder="e-mail"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Text="{Binding Email}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="email"
+                     />
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="True"
+                        Placeholder="Contraseña"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Text="{Binding Password}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="password"
+                     />
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="True"
+                        Placeholder="Confirma Contraseña"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Text="{Binding PasswordConfirmation}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="repass"
+                     />
+                <!--</StackLayout>
+            </ScrollView>-->
+            <Button Text="Registrar"
+                        Command="{Binding RegisterUserCommand}"
+                        BackgroundColor="DarkRed"
+                        TextColor="White"
+                        FontAttributes="Bold">
+            </Button>
+             <Label Text="Volver"
+                   x:Name="Back"
+                   TextColor="Blue"
+                   Margin="20"
+                   HorizontalTextAlignment="Center"
+                   TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BackLogin"/>
+                    </Label.GestureRecognizers>
+                </Label>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

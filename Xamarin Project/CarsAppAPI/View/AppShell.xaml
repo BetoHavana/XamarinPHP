@@ -35,14 +35,14 @@
     </TabBar>
 
     <ShellItem Route="InitialPage"
-               Title="Main Page">
+               Title="Inicio">
         <ShellContent ContentTemplate="{DataTemplate local:InitialPage}"/>
     </ShellItem>
-    <ShellItem Route="FindCar"
+    <ShellItem Route="Select"
                Title="Encuentra tu auto">
         <ShellContent ContentTemplate="{DataTemplate local:Select}"/>
     </ShellItem>
-    <MenuItem Text="Log Out"  Clicked="OnLogOutClicked">
+    <MenuItem Text="Salir"  Clicked="OnLogOutClicked">
     </MenuItem>
 
     <!--<FlyoutItem Title="Registro"
@@ -60,10 +60,26 @@
                   ContentTemplate="{DataTemplate local:Login}"/>
     </TabBar>
     <TabBar>
-        <ShellContent Title="Register"
+        <ShellContent Route="RegisterUser"
+                      Title="Register"
                       Shell.FlyoutBehavior="Disabled"
-                          ContentTemplate="{DataTemplate local:RegisterUser}"
-                          Route="RegisterUser">
+                      ContentTemplate="{DataTemplate local:RegisterUser}">
+         </ShellContent>
+    </TabBar>
+    <TabBar>
+        <ShellContent Title="Payment"
+                      Shell.FlyoutBehavior="Flyout"
+                      ContentTemplate="{DataTemplate local:PaymentOptions}"
+                      Route="PaymentOptions">
+
+         </ShellContent>
+    </TabBar>
+     <TabBar>
+        <ShellContent Title="AddCard"
+                      Shell.FlyoutBehavior="Flyout"
+                      ContentTemplate="{DataTemplate local:AddCard}"
+                      Route="AddCard">
+
          </ShellContent>
     </TabBar>
 </Shell>

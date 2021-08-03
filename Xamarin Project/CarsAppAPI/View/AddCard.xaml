@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CarsAppAPI.View.AddCard"
+    xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
+        <ContentPage.BindingContext>
+           <viewModel:PaymentViewModel></viewModel:PaymentViewModel>
+        </ContentPage.BindingContext>
+        <ContentPage.Content>
+            <ScrollView>
+                <StackLayout Padding="20,50,20,0">
+                    <Label Text="Agrega tu tarjeta" FontSize="Title"></Label>
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="Nombre en tarjeta"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Text="{Binding Name}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="name"
+                     />
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="False"
+                        Placeholder="Numero de tarjeta"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Text="{Binding CardNumber}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="number"
+                     />
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="False"
+                        Placeholder="CVV"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Text="{Binding Cvv}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                     />
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="False"
+                        Placeholder="Mes de expiración"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Text="{Binding ExpMonth}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="month"
+                     />
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="False"
+                        Placeholder="Año de expiración"
+                        PlaceholderColor="Gray"
+                        TextColor="Black"
+                        Text="{Binding ExpYear}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="year"
+                     />
+                     <Button Text="Añadir Tarjeta" Command="{Binding PostAddCardCommand}"></Button>
+                     <Button Text="Volver" Command="{Binding BackCommand}"></Button>
+                    </StackLayout>
+
+            </ScrollView>
+        </ContentPage.Content>
+</ContentPage>

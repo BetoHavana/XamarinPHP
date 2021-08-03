@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarsAppAPI.Models;
 using CarsAppAPI.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,13 +13,37 @@ namespace CarsAppAPI.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterUser : ContentPage
     {
-        //MainViewModel page;
         public RegisterUser()
         {
             InitializeComponent();
-            /*BindingContext = new MainViewModel(Navigation);
-            page = new MainViewModel(this);*/
             this.BindingContext = new RegisterViewModel();
+        }
+
+        public void cleanForm()
+        {
+            name.Text = "";
+            email.Text = "";
+            password.Text = "";
+            repass.Text = "";
+        }
+        protected override void OnAppearing()
+        {
+            name.Text = "";
+            email.Text = "";
+            password.Text = "";
+            repass.Text = "";
+        }
+        private async void BackLogin(object sender, EventArgs e)
+        {
+            
+            if (StaticConstants.showBackLabel)
+            {
+                await Shell.Current.GoToAsync($"//{nameof(Login)}");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"//{nameof(Select)}");
+            }
         }
     }
 }

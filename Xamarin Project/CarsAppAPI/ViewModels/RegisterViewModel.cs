@@ -27,13 +27,14 @@ namespace CarsAppAPI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        Uri urlBase = new Uri("https://ruffsstudios.com/api_carros/public");
+        Uri urlBase = new Uri(StaticConstants.UrlBase);
         private string name;
         public string Name
         {
             get { return name; }
             set { name = value; RaisePropetyChanged(); }
         }
+
 
         private string email;
         public string Email
@@ -66,7 +67,7 @@ namespace CarsAppAPI.ViewModels
         public RegisterViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
-            RegisterUserCommand = new Command(async () => await RegisterUser());
+            RegisterUserCommand = new Command(async () => await RegisterUserMethod());
         }
 
         private async void OnLoginClicked(object obj)
@@ -76,35 +77,62 @@ namespace CarsAppAPI.ViewModels
         }
 
         public ICommand RegisterUserCommand { get; set; }
-        public async Task RegisterUser()
+        public async Task RegisterUserMethod()
         {
-            var paramsPost = new { name = Name, email = Email, password = Password, password_confirmation = PasswordConfirmation };
-            string requestUri = "/api/v1/auth/create";
-            StaticConstants cts = new StaticConstants();
-            HttpClient client = new HttpClient();
-            Console.WriteLine("My Token " + cts.Token);
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + cts.Token);
-            client.BaseAddress = urlBase;
-            string jsonData = JsonConvert.SerializeObject(paramsPost);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            Console.WriteLine("content " + content);
-            Console.WriteLine("Body" + jsonData.ToString());
-            HttpResponseMessage response = await client.PostAsync(urlBase + requestUri, content);
-            Console.WriteLine("Codigo: " + response.IsSuccessStatusCode);
-            if (response.IsSuccessStatusCode)
+            if (Password != "" && Password != null &&
+                PasswordConfirmation != "" && PasswordConfirmation != null &&
+                Name != "" && Name != null &&
+                Email != "" && Email != null )
             {
-                var json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("POST Register " + json);
-                ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
-                //await page.DisplayAlert("Registered", "", "Ok");
-                await App.Current.MainPage.DisplayAlert("Registered", "", "ok");
+                if (Password == PasswordConfirmation)
+                {
+                    var paramsPost = new { name = Name, email = Email, password = Password, password_confirmation = PasswordConfirmation };
+
+                    HttpClient client = new HttpClient();
+                    Console.WriteLine("My Token " + StaticConstants.Token);
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + StaticConstants.Token);
+                    client.BaseAddress = urlBase;
+                    string jsonData = JsonConvert.SerializeObject(paramsPost);
+                    StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                    Console.WriteLine("content " + content);
+                    Console.WriteLine("Body" + jsonData.ToString());
+                    HttpResponseMessage response = await client.PostAsync(urlBase + StaticConstants.RegisterEndpoint, content);
+                    Console.WriteLine("Codigo: " + response.IsSuccessStatusCode);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine("POST Register " + json);
+                        ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
+                        RegisterUser RU = new RegisterUser();
+                        RU.cleanForm();
+                        await App.Current.MainPage.DisplayAlert("Registered", "", "ok");
+                        if (StaticConstants.isLogged == false)
+                        {
+                            MainViewModel objMVM = new MainViewModel();
+                            objMVM.Email = ListaRegistro.user.email;
+                            objMVM.Password = Password;
+                            StaticConstants.isRegisteredFromGuest = true;
+                            await objMVM.Login();
+                            
+                            await Shell.Current.GoToAsync($"//{nameof(PaymentOptions)}");
+                        }
+                    }
+                    else
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine("422 Register " + json);
+                        ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
+                        await App.Current.MainPage.DisplayAlert("An error ocurred", "", "ok");
+                    }
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Las contraseñas no coinciden", "", "ok");
+                }
             }
             else
             {
-                var json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("422 Register " + json);
-                ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
-                await App.Current.MainPage.DisplayAlert("An error ocurred", "", "ok");
+                await App.Current.MainPage.DisplayAlert("Llena todos los campos", "", "ok");
             }
         }
     }
