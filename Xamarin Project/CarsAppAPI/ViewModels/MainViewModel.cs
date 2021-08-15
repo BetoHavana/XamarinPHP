@@ -12,7 +12,7 @@ using System.Net.Http;
 using Xamarin.Essentials;
 using Newtonsoft.Json;
 using CarsAppAPI.View;
-
+using Acr.UserDialogs;
 
 namespace CarsAppAPI.ViewModels
 {
@@ -29,11 +29,6 @@ namespace CarsAppAPI.ViewModels
         Uri urlBase = new Uri(StaticConstants.UrlBase);
 
         #region constructors
-        /*public MainViewModel(INavigation navigation)
-        {
-            this.Navigation = navigation; 
-
-        }*/
         public MainViewModel()
         {
             ListaAuto = new AutoModel();
@@ -145,6 +140,7 @@ namespace CarsAppAPI.ViewModels
         public ICommand LoginCommand { get; set; }
         public async Task Login()
         {
+            UserDialogs.Instance.ShowLoading("Bienvenido");
             var paramsPost = new { email = Email, password = Password };
             var client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(paramsPost);
@@ -159,18 +155,21 @@ namespace CarsAppAPI.ViewModels
                 StaticConstants.Token = loginResponsetList.token;
                 if (loginResponsetList.token != null)
                 {
-                    //await Navigation.PushAsync(new Master());
-                    await App.Current.MainPage.DisplayAlert("Bienvenido", "", "ok");
+                    //await App.Current.MainPage.DisplayAlert("Bienvenido", "", "ok");
                     StaticConstants.isLogged = true;
                     if (StaticConstants.isRegisteredFromGuest == false)
                     {
                         await Shell.Current.GoToAsync("//InitialPage");
                     }
-                   
+                    
                 }
+                UserDialogs.Instance.HideLoading();
+
             }
             else
             {
+                UserDialogs.Instance.HideLoading();
+
                 await App.Current.MainPage.DisplayAlert("Usuario no encontrado", "verifica" +
                     " tu usuario y contraseña", "Ok");
             }
@@ -195,11 +194,8 @@ namespace CarsAppAPI.ViewModels
                 {
                     StaticConstants.isLogged = false;
                     StaticConstants.showBackLabel = false;
-
                     await Shell.Current.GoToAsync("//InitialPage");
-
                 }
-
             }
             else
             {
@@ -207,29 +203,23 @@ namespace CarsAppAPI.ViewModels
                     "y contraseña", "Ok");
             }
         }
-
-
-        /*public ICommand ConsultaListaAutosPostCommand { get; set; }
-        public async Task ConsultaListaAutosPost()
-        {
-            var paramsPost = new { placa = Placa, modelo = Modelo };
-
-            ListaAutos = await webApi.executeRequestPost<ObservableCollection<LoginModel>>(paramsPost);
-        }*/
         #endregion
 
         #region GetMethods
         public ICommand ConsultaListaAutosGetCommand { get; set; }
         public async Task ConsultaListaAutosGet()
         {
+            UserDialogs.Instance.ShowLoading("Busqueda");
             Console.WriteLine("Token: " + StaticConstants.Token);
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + StaticConstants.Token);
             var response = await client.GetAsync(urlBase + StaticConstants.GetCarsEndpoint);
             if (response.IsSuccessStatusCode)
             {
+                UserDialogs.Instance.HideLoading();
                 bool res = await App.Current.MainPage.DisplayAlert("Auto localizado",
                     "Para continuar al pago presione Pagar", "Pagar","no pagar");
+
                 if(res && StaticConstants.isLogged)
                 {
                     await Shell.Current.GoToAsync($"//{nameof(PaymentOptions)}");
@@ -241,6 +231,7 @@ namespace CarsAppAPI.ViewModels
                 {
                     await Shell.Current.GoToAsync($"//{nameof(RegisterUser)}");
                 }
+
             }
         }
 
@@ -262,26 +253,26 @@ namespace CarsAppAPI.ViewModels
             }
         }
         #endregion
-        /*
+
         #region PutMethods
-        public ICommand ConsultaListaAutosPutCommand { get; set; }
+        /*public ICommand ConsultaListaAutosPutCommand { get; set; }
         public async Task ConsultaListaAutosPut()
         {
             var paramsPost = new { placa = Placa, modelo = Modelo, id = Id };
 
             ListaAutos = await webApi.executeRequestPut<ObservableCollection<LoginModel>>(paramsPost);
-        }
+        }*/
         #endregion
 
         #region DeleteMethods
-        public ICommand ConsultaListaAutosDeleteCommand { get; set; }
+        /*public ICommand ConsultaListaAutosDeleteCommand { get; set; }
         public async Task ConsultaListaAutosDelete()
         {
             string stParamsGet = $"id={id}";
 
             ListaAutos = await webApi.executeRequestDelete<ObservableCollection<LoginModel>>(stParamsGet);
-        }
+        }*/
         #endregion
-        */
+
     }
 }

@@ -3,17 +3,17 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using CarsAppAPI.ViewModels;
 using CarsAppAPI.Models;
+using Acr.UserDialogs;
 
 namespace CarsAppAPI.View
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Login : ContentPage
     {
+        ActivityIndicator activityIndicator;
         public Login()
         {
             InitializeComponent();
-            //this.BindingContext = new  MainViewModel(Navigation);
-            
+
         }
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
@@ -22,10 +22,14 @@ namespace CarsAppAPI.View
         }
         private async void LogAsGuest(object sender, EventArgs e)
         {
+            UserDialogs.Instance.ShowLoading("Bienvenido");
+            //Indicator.IsRunning = true;
             MainViewModel objMainVM = new MainViewModel();
             objMainVM.Email = "usertest@test.com";
             objMainVM.Password = "Usertest1234.";
             await objMainVM.LoginGuest();
+            UserDialogs.Instance.HideLoading();
+            //Indicator.IsRunning = false;
             await Shell.Current.GoToAsync($"//{nameof(InitialPage)}");
         }
         protected override void OnAppearing()

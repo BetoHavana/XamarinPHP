@@ -12,6 +12,7 @@ using System.Net.Http;
 using Xamarin.Essentials;
 using Newtonsoft.Json;
 using CarsAppAPI.View;
+using Acr.UserDialogs;
 
 namespace CarsAppAPI.ViewModels
 {
@@ -79,6 +80,7 @@ namespace CarsAppAPI.ViewModels
         public ICommand RegisterUserCommand { get; set; }
         public async Task RegisterUserMethod()
         {
+            UserDialogs.Instance.ShowLoading("Registrando");
             if (Password != "" && Password != null &&
                 PasswordConfirmation != "" && PasswordConfirmation != null &&
                 Name != "" && Name != null &&
@@ -116,6 +118,7 @@ namespace CarsAppAPI.ViewModels
                             
                             await Shell.Current.GoToAsync($"//{nameof(PaymentOptions)}");
                         }
+                        UserDialogs.Instance.HideLoading();
                     }
                     else
                     {

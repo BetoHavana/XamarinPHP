@@ -127,6 +127,9 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Acr.UserDialogs">
+      <Version>7.1.0.514</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -137,5 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="header.jpg" />
+    <BundleResource Include="1.png" />
+    <BundleResource Include="icon.jpeg" />
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using CarsAppAPI.View;
 using System.Text;
+using Acr.UserDialogs;
 
 namespace CarsAppAPI.ViewModels
 {
@@ -140,6 +141,7 @@ namespace CarsAppAPI.ViewModels
 
         public async Task PostPayment(String ids)
         {
+            UserDialogs.Instance.ShowLoading("Realizando Pago");
             var paramsPost = new { source_id = ids, device_session_id = "a"};
             string jsonData = JsonConvert.SerializeObject(paramsPost);
             HttpClient client = new HttpClient();
@@ -156,19 +158,22 @@ namespace CarsAppAPI.ViewModels
                 await App.Current.MainPage.DisplayAlert("Pagado", "", "ok");
                 StaticConstants.showCarResponse = true;
                 await Shell.Current.GoToAsync($"//{nameof(Select)}");
-                
+                UserDialogs.Instance.HideLoading();
             }
             else
             {
                 var json = await response.Content.ReadAsStringAsync();
                 Console.WriteLine("Payment to do " + json);
                 //CardsList = JsonConvert.DeserializeObject<PaymentModel>(json);
+                UserDialogs.Instance.HideLoading();
+
                 await App.Current.MainPage.DisplayAlert("An error ocurred on payment", "", "ok");
             }
         }
 
         public async Task PostAddCard()
         {
+            UserDialogs.Instance.ShowLoading("Añadiendo tarjeta");
             var paramsPost = new { holder_name = Name, card_number = CardNumber, cvv = Cvv, expiration_month = ExpMonth, expiration_year = ExpYear };
             string jsonData = JsonConvert.SerializeObject(paramsPost);
             HttpClient client = new HttpClient();
@@ -183,12 +188,15 @@ namespace CarsAppAPI.ViewModels
                 Console.WriteLine(" payment: " + json);
                 //CardsList = JsonConvert.DeserializeObject<PaymentModel>(json);
                 await App.Current.MainPage.DisplayAlert("Added", json, "ok");
+                UserDialogs.Instance.HideLoading();
             }
             else
             {
                 var json = await response.Content.ReadAsStringAsync();
                 Console.WriteLine("Payment to do " + json);
                 //CardsList = JsonConvert.DeserializeObject<PaymentModel>(json);
+                UserDialogs.Instance.HideLoading();
+
                 await App.Current.MainPage.DisplayAlert("An error ocurred on adding card", "", "ok");
             }
         }

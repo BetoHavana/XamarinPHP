@@ -6,20 +6,31 @@
 
     <ContentPage.BindingContext>
         <viewModel:MainViewModel></viewModel:MainViewModel>
+
     </ContentPage.BindingContext>
+
+   <!-- <ContentPage.Resources>
+    <StyleSheet Source="MainCssClass.css" />
+    </ContentPage.Resources>-->
+
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Padding="20,0,20,0" VerticalOptions="Center">
+            <StackLayout x:Name="MainSL" Padding="20,0,20,0" VerticalOptions="Center">
+                <!--<ActivityIndicator Color="Orange"
+                                   x:Name="Indicator"
+                                   ScaleX="3"
+                                   ScaleY="3"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>-->
                 <Image Aspect="AspectFill"
-                       Source="header.jpg"
+                       Source="1.png"
                        Opacity="0.6"/>
-                <Label Text="The Car Finder"
+                <!--<Label Text="Finden MX"
                        TextColor="Black"
                        FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
                        VerticalTextAlignment="Center"
                        FontSize="Large"
-                       />
+                       />-->
                 <Entry
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
@@ -66,6 +77,5 @@
                     </Label.GestureRecognizers>
                 </Label>
             </StackLayout>
-        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

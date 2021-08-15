@@ -7,6 +7,18 @@
     <ContentPage.BindingContext>
         <viewModel:MainViewModel/>
     </ContentPage.BindingContext>
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image Source="1.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Label Text="   |   Finden MX"
+                   TextColor="#C18E68"
+                   FontSize="Large"
+                   VerticalTextAlignment="Center"
+                   Style="{StaticResource RobotoBold}"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="10,0,10,0" VerticalOptions="Center">

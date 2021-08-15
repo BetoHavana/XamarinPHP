@@ -2,17 +2,57 @@
 <Shell
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:CarsAppAPI.View"
-    x:Class="CarsAppAPI.View.AppShell">
+    x:Class="CarsAppAPI.View.AppShell"
+    mc:Ignorable="d"
+    FlyoutHeaderBehavior="CollapseOnScroll"  
+    Shell.FlyoutBehavior="Flyout">
 
-    
+    <Shell.Resources>
+        <Style x:Key="BaseStyle"
+               TargetType="Element">
+            <Setter Property="Shell.BackgroundColor"
+                    Value="#33333D"/>
+            <Setter Property="Shell.DisabledColor"
+                    Value="#B4FFFFFF"/>
+            <Setter Property="Shell.ForegroundColor"
+                    Value="White"/>
+            <!--<Setter Property="Shell.TitleColor"
+                    Value="White"/>-->
+            <Setter Property="Shell.UnselectedColor"
+                    Value="#95FFFFFF"/>
+        </Style>
+
+        <!-- cambiar por shellItem o dejar FlyoutItem-->
+        <Style TargetType="ShellItem" 
+               BasedOn="{StaticResource BaseStyle}">
+               <Setter
+                   Property="Shell.TitleColor"
+                   Value="#C18E68"/>
+        </Style>
+        <Style x:Key="FoodStyle"
+               TargetType="Element"
+               BasedOn="{StaticResource BaseStyle}">
+            <Setter Property="Shell.BackgroundColor"
+                    Value="DarkRed"/>
+        </Style>
+        <Style x:Key="PastaStyle"
+               TargetType="Element"
+               BasedOn="{StaticResource BaseStyle}">
+            <Setter Property="Shell.BackgroundColor"
+                    Value="Gold"/>
+        </Style>
+    </Shell.Resources>
+
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <Grid BackgroundColor="Black">
                 <Image Aspect="AspectFill"
-                       Source="header.jpg"
+                       Source="1.png"
                        Opacity="0.6"/>
-                <Label Text="The Car Finder"
+                <Label Text="Finden MX"
                        TextColor="White"
                        FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
@@ -35,7 +75,8 @@
     </TabBar>
 
     <ShellItem Route="InitialPage"
-               Title="Inicio">
+               Title="Inicio"
+               >
         <ShellContent ContentTemplate="{DataTemplate local:InitialPage}"/>
     </ShellItem>
     <ShellItem Route="Select"
@@ -55,7 +96,7 @@
     </FlyoutItem>-->
 
     <TabBar>
-    <ShellContent Route="Login"
+        <ShellContent Route="Login"
                   Shell.FlyoutBehavior="Disabled"
                   ContentTemplate="{DataTemplate local:Login}"/>
     </TabBar>
@@ -64,7 +105,7 @@
                       Title="Register"
                       Shell.FlyoutBehavior="Disabled"
                       ContentTemplate="{DataTemplate local:RegisterUser}">
-         </ShellContent>
+        </ShellContent>
     </TabBar>
     <TabBar>
         <ShellContent Title="Payment"
@@ -72,14 +113,14 @@
                       ContentTemplate="{DataTemplate local:PaymentOptions}"
                       Route="PaymentOptions">
 
-         </ShellContent>
+        </ShellContent>
     </TabBar>
-     <TabBar>
+    <TabBar>
         <ShellContent Title="AddCard"
                       Shell.FlyoutBehavior="Flyout"
                       ContentTemplate="{DataTemplate local:AddCard}"
                       Route="AddCard">
 
-         </ShellContent>
+        </ShellContent>
     </TabBar>
 </Shell>

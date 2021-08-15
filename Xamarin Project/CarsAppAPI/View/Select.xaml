@@ -7,9 +7,21 @@
     <ContentPage.BindingContext>
         <viewModel:MainViewModel></viewModel:MainViewModel>
     </ContentPage.BindingContext>
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image Source="1.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Label Text="   | Encuentra tu auto"
+                   TextColor="#C18E68"
+                   FontSize="Large"
+                   VerticalTextAlignment="Center"
+                   Style="{StaticResource RobotoBold}"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Content>
             <StackLayout Padding="10,20,10,0" >
-                <Label Text="Encuentra tu auto" FontSize="Title"></Label>
+                
                 <Entry
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"

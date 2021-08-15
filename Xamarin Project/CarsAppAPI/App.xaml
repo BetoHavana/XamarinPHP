@@ -2,7 +2,19 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarsAppAPI.App">
-    <Application.Resources>
-
+   <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="RobotoCondensed_Regular.ttf#Roboto Condensed" />
+            </Style>
+            <Style TargetType="Label"
+                   x:Key="RobotoBold">
+                <Setter Property="FontFamily" Value="RobotoCondensed-Bold.ttf#Roboto Condensed" />
+            </Style>
+            <Style TargetType="Label"
+                   x:Key="RobotoBoldItalic">
+                <Setter Property="FontFamily" Value="RobotoCondensed-BoldItalic.ttf#Roboto Condensed" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
