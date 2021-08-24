@@ -3,39 +3,65 @@
         xmlns="http://xamarin.com/schemas/2014/forms"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         x:Class="CarsAppAPI.View.PaymentOptions"
-        xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
+        xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
+        BackgroundImageSource="bg4.png">
         <ContentPage.BindingContext>
            <viewModel:PaymentViewModel></viewModel:PaymentViewModel>
         </ContentPage.BindingContext>
+        <Shell.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image Source="logo.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Label Text="   | Métodos de pago"
+                   TextColor="White"
+                   FontSize="Large"
+                   VerticalTextAlignment="Center"/>
+        </StackLayout>
+        </Shell.TitleView>
         <ContentPage.Content>
                 <StackLayout Padding="10,20,10,0" >
-                    <Label Text="Tus Tarjetas" FontSize="Title"></Label>
-                    <Button Text="Añadir Tarjeta" Command="{Binding AddCardCommand}"></Button>
-                    <ScrollView>
+                    <Button Text="Añadir Tarjeta"
+                            BackgroundColor="White"
+                            TextColor="#025274"
+                            Margin="50,5,50,5"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            Command="{Binding AddCardCommand}"></Button>
+                    <ScrollView BackgroundColor="Transparent">
+                        <Frame Margin="8"
+                               CornerRadius="12"
+                               BackgroundColor="#22A3BF"
+                               Opacity="10">
                         <ListView x:Name="CardsListx"
                                   ItemsSource="{Binding CardsList.cards}" 
-                                  Header="Here Your cards" 
+                                  Header="Tus tarjetas"
+                                  VerticalOptions="Center"
                                   Footer="" 
-                                  RowHeight="30">
+                                  RowHeight="30"
+                                  BackgroundColor="Transparent">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
                                             <ViewCell.View>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition ></ColumnDefinition>
+                                                        <ColumnDefinition Width=".8*"></ColumnDefinition>
                                                         <ColumnDefinition></ColumnDefinition>
                                                         <ColumnDefinition></ColumnDefinition>
                                                         <ColumnDefinition></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <Label TextColor="Black" Text="{Binding id}"  ></Label>
-                                                    <Label  Text="{Binding card_number}"  Grid.Column="1"></Label>
-                                                    <Label  Text="{Binding bank_name}" Grid.Column="2"></Label>
+                                                    <Label TextColor="White" Text="{Binding id}"></Label>
+                                                    <Label TextColor="White" Text="{Binding card_number}"  Grid.Column="1"></Label>
+                                                    <Label TextColor="White" Text="{Binding bank_name}" Grid.Column="2"></Label>
                                                     <!--<Button Text="Pay" Clicked="getPaid" CommandParameter="{Binding id}" Grid.Column="3"></Button>-->
-                                                    <Button Text="Pay"
+                                                    <Button Text="Pagar"
                                                             Command="{Binding Path = BindingContext.PostPaymentCommand,
                                                             Source={x:Reference CardsListx}}"
                                                             CommandParameter="{Binding id}"
+                                                            BackgroundColor="#025274"
+                                                            TextColor="white"
+                                                            Margin="0,5,0,5"
                                                             Grid.Column="3">
                                                     </Button>
                                                 </Grid>
@@ -44,8 +70,16 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
+                            </Frame>
                      </ScrollView>
-                    <Button Text="Volver" Command="{Binding BackCommand}" ></Button>
+                    <Button Text="Volver"
+                            Command="{Binding Back2SelectCommand}"
+                            Margin="50,5,50,5"
+                            CornerRadius="12"
+                            BackgroundColor="White"
+                            FontAttributes="Bold"
+                            TextColor="#025274">
+                    </Button>
                 </StackLayout>
         </ContentPage.Content>
     </ContentPage>

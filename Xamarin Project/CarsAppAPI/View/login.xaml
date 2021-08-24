@@ -2,80 +2,96 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarsAppAPI.View.Login"
-             xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
+             xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
+             BackgroundColor="#33333D"
+             Shell.NavBarIsVisible="False"
+             BackgroundImageSource="bg1.png">
 
     <ContentPage.BindingContext>
         <viewModel:MainViewModel></viewModel:MainViewModel>
-
     </ContentPage.BindingContext>
 
-   <!-- <ContentPage.Resources>
+    <!-- <ContentPage.Resources>
     <StyleSheet Source="MainCssClass.css" />
     </ContentPage.Resources>-->
+    <ContentPage.Content >
+        <StackLayout x:Name="MainSL"
+                     Padding="20,0,20,0"
+                     VerticalOptions="Center">
+            <Image Aspect="AspectFill"
+                       Source="logo.png"
+                       Opacity="0.6"/>
+            <Frame Margin="15"
+                    CornerRadius="15"
+                   BackgroundColor="#025274">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".8*"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="False"
+                        Placeholder="e-mail"
+                        PlaceholderColor="#025274"
+                        TextColor="Black"
+                        Text="{Binding Email}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="email"
+                     />
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="True"
+                        Placeholder="contraseña"
+                        PlaceholderColor="#025274"
+                        TextColor="Black"
+                        Text="{Binding Password}"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="password"
+                        Grid.Row="1"
+                        
+                     />
+                     <Button Text="Entrar"
+                             Command="{Binding LoginCommand}"
+                             BackgroundColor="White"
+                             TextColor="#025274"
+                             FontAttributes="Bold"
+                             Grid.Row="2">
+                     </Button>
+                </Grid>
 
-    <ContentPage.Content>
-            <StackLayout x:Name="MainSL" Padding="20,0,20,0" VerticalOptions="Center">
-                <!--<ActivityIndicator Color="Orange"
+            </Frame>
+            <Label Text="¿No estás registrado?, Registrate"
+                   x:Name="RegistrationBtn"
+                   TextColor="Black"
+                   Margin="20"
+                   HorizontalTextAlignment="Center"
+                   TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Entrar como invitado"
+                   x:Name="LogAsGuestBtn"
+                   TextColor="Black"
+                   Margin="20"
+                   HorizontalTextAlignment="Center"
+                   TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="LogAsGuest"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <!--<ActivityIndicator Color="Orange"
                                    x:Name="Indicator"
                                    ScaleX="3"
                                    ScaleY="3"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"/>-->
-                <Image Aspect="AspectFill"
-                       Source="1.png"
-                       Opacity="0.6"/>
-                <!--<Label Text="Finden MX"
-                       TextColor="Black"
-                       FontAttributes="Bold"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"
-                       FontSize="Large"
-                       />-->
-                <Entry
-                    VerticalOptions="Center"
-                    HorizontalOptions="FillAndExpand"
-                    IsPassword="False"
-                    Placeholder="e-mail"
-                    PlaceholderColor="Gray"
-                    TextColor="Black"
-                    Text="{Binding Email}"
-                    FontAttributes="Bold"
-                    FontSize="Caption"
-                    x:Name="email"
-                 />
-                <Entry
-                    VerticalOptions="Center"
-                    HorizontalOptions="FillAndExpand"
-                    IsPassword="True"
-                    Placeholder="contraseña"
-                    PlaceholderColor="Gray"
-                    TextColor="Black"
-                    Text="{Binding Password}"
-                    FontAttributes="Bold"
-                    FontSize="Caption"
-                    x:Name="password"
-                 />
-                <Button Text="Entrar" Command="{Binding LoginCommand}" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold"></Button>
-                <Label Text="¿No estás registrado?, Registrate"
-                   x:Name="RegistrationBtn"
-                   TextColor="Blue"
-                   Margin="20"
-                   HorizontalTextAlignment="Center"
-                   TextDecorations="Underline">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                    </Label.GestureRecognizers>
-                </Label>
-                <Label Text="Entrar como invitado"
-                   x:Name="LogAsGuestBtn"
-                   TextColor="Blue"
-                   Margin="20"
-                   HorizontalTextAlignment="Center"
-                   TextDecorations="Underline">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="LogAsGuest"/>
-                    </Label.GestureRecognizers>
-                </Label>
-            </StackLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

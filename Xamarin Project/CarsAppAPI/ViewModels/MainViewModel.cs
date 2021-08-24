@@ -31,7 +31,7 @@ namespace CarsAppAPI.ViewModels
         #region constructors
         public MainViewModel()
         {
-            ListaAuto = new AutoModel();
+            //ListaAuto = new AutoModel();
             ConsultaListaAutosGetCommand = new Command(async () => { await ConsultaListaAutosGet(); });
             /*ConsultaListaAutosPostCommand = new Command(async () => await ConsultaListaAutosPost());
             ConsultaListaAutosPutCommand = new Command(async () => await ConsultaListaAutosPut());
@@ -122,18 +122,14 @@ namespace CarsAppAPI.ViewModels
             get { return token; }
             set { token = value; RaisePropetyChanged(); }
         }
-        private AutoModel data;
-        public AutoModel Data
-        {
-            get => data;
-            set { data = value; RaisePropetyChanged(); }
-        }
+        
         private bool showCarR;
         public bool ShowCarR
         {
             get { return showCarR; }
             set { showCarR = value; RaisePropetyChanged(); }
         }
+
         #endregion
 
         #region PostMethods 
@@ -159,7 +155,7 @@ namespace CarsAppAPI.ViewModels
                     StaticConstants.isLogged = true;
                     if (StaticConstants.isRegisteredFromGuest == false)
                     {
-                        await Shell.Current.GoToAsync("//InitialPage");
+                        await Shell.Current.GoToAsync("//Select");
                     }
                     
                 }
@@ -194,7 +190,7 @@ namespace CarsAppAPI.ViewModels
                 {
                     StaticConstants.isLogged = false;
                     StaticConstants.showBackLabel = false;
-                    await Shell.Current.GoToAsync("//InitialPage");
+                    await Shell.Current.GoToAsync("//Select");
                 }
             }
             else
@@ -226,30 +222,48 @@ namespace CarsAppAPI.ViewModels
                     var json = await response.Content.ReadAsStringAsync();
                     Preferences.Set("carresponse",json);
                     Console.WriteLine("List of cars: " + json);
-                    ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
+                    //ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
                 } else if(res && !StaticConstants.isLogged)
                 {
                     await Shell.Current.GoToAsync($"//{nameof(RegisterUser)}");
                 }
 
+            } else
+            {
+                UserDialogs.Instance.HideLoading();
             }
         }
 
         public ICommand GetAutoByIdCommand { get; set; }
         public async Task GetAutoById()
         {
-            string stParamsGet = $"id={Id}";
-            string requestUri = "/api/v1/cars/1?";
-            Console.WriteLine("params :" + stParamsGet);
+            UserDialogs.Instance.ShowLoading("Busqueda");
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
-            var response = await client.GetAsync(urlBase+requestUri + stParamsGet);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + StaticConstants.Token);
+            var response = await client.GetAsync(StaticConstants.UrlBase +
+                StaticConstants.GetCarsByIdEndpoint + Placa);
             Console.WriteLine("Codigo: " + response.IsSuccessStatusCode);
             if (response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Requested Car: " + json);
-                ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
+                UserDialogs.Instance.HideLoading();
+                bool res = await App.Current.MainPage.DisplayAlert("Auto localizado",
+                    "Para continuar al pago presione Pagar", "Pagar", "no pagar");
+
+                if (res && StaticConstants.isLogged)
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(PaymentOptions)}");
+                    var json = await response.Content.ReadAsStringAsync();
+                    Preferences.Set("carresponse", json);
+                    Console.WriteLine("List of cars: " + json);
+                    ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
+                }
+                else if (res && !StaticConstants.isLogged)
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(RegisterUser)}");
+                }
+            } else
+            {
+                UserDialogs.Instance.HideLoading();
             }
         }
         #endregion

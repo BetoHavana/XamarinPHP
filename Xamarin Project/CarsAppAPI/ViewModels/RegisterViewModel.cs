@@ -122,6 +122,7 @@ namespace CarsAppAPI.ViewModels
                     }
                     else
                     {
+                        UserDialogs.Instance.HideLoading();
                         var json = await response.Content.ReadAsStringAsync();
                         Console.WriteLine("422 Register " + json);
                         ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
@@ -130,11 +131,13 @@ namespace CarsAppAPI.ViewModels
                 }
                 else
                 {
+                    UserDialogs.Instance.HideLoading();
                     await App.Current.MainPage.DisplayAlert("Las contraseñas no coinciden", "", "ok");
                 }
             }
             else
             {
+                UserDialogs.Instance.HideLoading();
                 await App.Current.MainPage.DisplayAlert("Llena todos los campos", "", "ok");
             }
         }

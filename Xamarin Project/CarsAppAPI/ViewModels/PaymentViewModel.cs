@@ -84,6 +84,7 @@ namespace CarsAppAPI.ViewModels
 
         public ICommand GetCardsCommand { get; set; }
         public Command BackCommand { get; }
+        public Command Back2SelectCommand { get; }
         public Command AddCardCommand { get; }
         public ICommand PostPaymentCommand { get; set; }
         public ICommand PostAddCardCommand { get; set; }
@@ -91,6 +92,7 @@ namespace CarsAppAPI.ViewModels
         {
             
             BackCommand = new Command(Back);
+            Back2SelectCommand = new Command(Back2Select);
             AddCardCommand = new Command(GoAddCard);
             GetCardsCommand = new Command(async () =>
             {
@@ -108,6 +110,10 @@ namespace CarsAppAPI.ViewModels
         }
 
         private async void Back(object obj)
+        {
+            await Shell.Current.GoToAsync($"//{nameof(PaymentOptions)}");
+        }
+        private async void Back2Select(object obj)
         {
             await Shell.Current.GoToAsync($"//{nameof(Select)}");
         }
@@ -142,7 +148,7 @@ namespace CarsAppAPI.ViewModels
         public async Task PostPayment(String ids)
         {
             UserDialogs.Instance.ShowLoading("Realizando Pago");
-            var paramsPost = new { source_id = ids, device_session_id = "a"};
+            var paramsPost = new { source_id = ids, device_session_id = "a",license_plate = "999-XYZ-A7" };
             string jsonData = JsonConvert.SerializeObject(paramsPost);
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + StaticConstants.Token);

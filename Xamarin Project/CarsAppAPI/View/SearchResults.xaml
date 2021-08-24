@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CarsAppAPI.View.SearchResults"
+    BackgroundImageSource="bg6.png">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image Source="logo.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Label Text="   | Tus búsquedas"
+                   TextColor="White"
+                   FontSize="Large"
+                   VerticalTextAlignment="Center"/>
+        </StackLayout>
+    </Shell.TitleView>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="HELLOW"></Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

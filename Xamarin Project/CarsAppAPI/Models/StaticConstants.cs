@@ -9,6 +9,7 @@ namespace CarsAppAPI.Models
         public static string ChargeEndpoint = "/api/v1/openpay/charges";
         public static string GetCardsEndpoint = "/api/v1/openpay/cards";
         public static string GetCarsEndpoint = "/api/v1/cars?page=1";
+        public static string GetCarsByIdEndpoint = "/api/v1/cars/";
         public static string AddCardEndpoint = "/api/v1/openpay/cards";
         public static string UrlBase = "https://ruffsstudios.com/api_carros/public";
         public static string LoginUrl = "/api/v1/auth/login";

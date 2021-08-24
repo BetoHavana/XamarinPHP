@@ -3,74 +3,119 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CarsAppAPI.View.AddCard"
-    xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
+    xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
+    BackgroundImageSource="bg5.png">
         <ContentPage.BindingContext>
            <viewModel:PaymentViewModel></viewModel:PaymentViewModel>
         </ContentPage.BindingContext>
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image Source="logo.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Label Text="   | Añadir método de pago"
+                   TextColor="White"
+                   FontSize="Medium"
+                   VerticalTextAlignment="Center"/>
+        </StackLayout>
+    </Shell.TitleView>
         <ContentPage.Content>
             <ScrollView>
-                <StackLayout Padding="20,50,20,0">
-                    <Label Text="Agrega tu tarjeta" FontSize="Title"></Label>
-                    <Entry
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand"
-                        Placeholder="Nombre en tarjeta"
-                        PlaceholderColor="Gray"
-                        TextColor="Black"
-                        Text="{Binding Name}"
-                        FontAttributes="Bold"
-                        FontSize="Caption"
-                        x:Name="name"
-                     />
-                    <Entry
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand"
-                        IsPassword="False"
-                        Placeholder="Numero de tarjeta"
-                        PlaceholderColor="Gray"
-                        TextColor="Black"
-                        Text="{Binding CardNumber}"
-                        FontAttributes="Bold"
-                        FontSize="Caption"
-                        x:Name="number"
-                     />
-                    <Entry
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand"
-                        IsPassword="False"
-                        Placeholder="CVV"
-                        PlaceholderColor="Gray"
-                        TextColor="Black"
-                        Text="{Binding Cvv}"
-                        FontAttributes="Bold"
-                        FontSize="Caption"
-                     />
-                    <Entry
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand"
-                        IsPassword="False"
-                        Placeholder="Mes de expiración"
-                        PlaceholderColor="Gray"
-                        TextColor="Black"
-                        Text="{Binding ExpMonth}"
-                        FontAttributes="Bold"
-                        FontSize="Caption"
-                        x:Name="month"
-                     />
-                    <Entry
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand"
-                        IsPassword="False"
-                        Placeholder="Año de expiración"
-                        PlaceholderColor="Gray"
-                        TextColor="Black"
-                        Text="{Binding ExpYear}"
-                        FontAttributes="Bold"
-                        FontSize="Caption"
-                        x:Name="year"
-                     />
-                     <Button Text="Añadir Tarjeta" Command="{Binding PostAddCardCommand}"></Button>
-                     <Button Text="Volver" Command="{Binding BackCommand}"></Button>
+                <StackLayout Padding="20,20,20,0">
+                  <Frame Margin="8"
+                         CornerRadius="12"
+                         BackgroundColor="#22A3BF">
+                      <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height=".8*"></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                        </Grid.RowDefinitions>
+                            <Entry
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                Placeholder="Nombre en tarjeta"
+                                PlaceholderColor="#025274"
+                                TextColor="Black"
+                                Text="{Binding Name}"
+                                FontAttributes="Bold"
+                                FontSize="Caption"
+                                x:Name="name"
+                                
+                             />
+                            <Entry
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                IsPassword="False"
+                                Placeholder="Numero de tarjeta"
+                                PlaceholderColor="#025274"
+                                TextColor="Black"
+                                Text="{Binding CardNumber}"
+                                FontAttributes="Bold"
+                                FontSize="Caption"
+                                x:Name="number"
+                                Grid.Row="1"
+                             />
+                            <Entry
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                IsPassword="False"
+                                Placeholder="CVV"
+                                PlaceholderColor="#025274"
+                                TextColor="Black"
+                                Text="{Binding Cvv}"
+                                FontAttributes="Bold"
+                                FontSize="Caption"
+                                Grid.Row="2"
+                             />
+                            <Entry
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                IsPassword="False"
+                                Placeholder="Mes de expiración"
+                                PlaceholderColor="#025274"
+                                TextColor="Black"
+                                Text="{Binding ExpMonth}"
+                                FontAttributes="Bold"
+                                FontSize="Caption"
+                                x:Name="month"
+                                Grid.Row="3"
+                             />
+                            <Entry
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                IsPassword="False"
+                                Placeholder="Año de expiración"
+                                PlaceholderColor="#025274"
+                                TextColor="Black"
+                                Text="{Binding ExpYear}"
+                                FontAttributes="Bold"
+                                FontSize="Caption"
+                                x:Name="year"
+                                Grid.Row="4"
+                             />
+                          <Button Text="Añadir Tarjeta"
+                             Command="{Binding PostAddCardCommand}"
+                             Margin="50,0,50,0"
+                            CornerRadius="12"
+                            BackgroundColor="White"
+                            FontAttributes="Bold"
+                            TextColor="#025274"
+                                  Grid.Row="5">
+                            </Button>
+                          </Grid>
+                   </Frame>
+                     
+                     <Button Text="Volver"
+                             Command="{Binding BackCommand}"
+                             Margin="50,5,50,5"
+                            CornerRadius="12"
+                            BackgroundColor="White"
+                            FontAttributes="Bold"
+                            TextColor="#025274"></Button>
                     </StackLayout>
 
             </ScrollView>

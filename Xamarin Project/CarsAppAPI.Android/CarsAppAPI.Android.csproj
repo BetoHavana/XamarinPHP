@@ -94,11 +94,31 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\icon.jpeg">
+    <AndroidResource Include="Resources\drawable\logo.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\1.png">
+    <AndroidResource Include="Resources\drawable\bg6.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg5.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg4.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg3.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg2.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg1.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

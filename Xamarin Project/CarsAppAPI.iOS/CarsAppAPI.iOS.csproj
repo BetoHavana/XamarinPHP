@@ -140,7 +140,12 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="header.jpg" />
-    <BundleResource Include="1.png" />
-    <BundleResource Include="icon.jpeg" />
+    <BundleResource Include="logo.png" />
+    <BundleResource Include="bg6.png" />
+    <BundleResource Include="bg5.png" />
+    <BundleResource Include="bg4.png" />
+    <BundleResource Include="bg3.png" />
+    <BundleResource Include="bg2.png" />
+    <BundleResource Include="bg1.png" />
   </ItemGroup>
 </Project>

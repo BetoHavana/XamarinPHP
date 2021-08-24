@@ -3,20 +3,20 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
-    x:Class="CarsAppAPI.View.InitialPage">
+    x:Class="CarsAppAPI.View.InitialPage"
+    BackgroundImageSource="bg2.png">
     <ContentPage.BindingContext>
         <viewModel:MainViewModel/>
     </ContentPage.BindingContext>
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal">
-            <Image Source="1.png"
+            <Image Source="logo.png"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"/>
-            <Label Text="   |   Finden MX"
-                   TextColor="#C18E68"
+            <Label Text="   | Finden MX"
+                   TextColor="White"
                    FontSize="Large"
-                   VerticalTextAlignment="Center"
-                   Style="{StaticResource RobotoBold}"/>
+                   VerticalTextAlignment="Center"/>
         </StackLayout>
     </Shell.TitleView>
     <ContentPage.Content>

@@ -2,71 +2,103 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarsAppAPI.View.RegisterUser"
-             xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels">
+             xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
+             Shell.NavBarIsVisible="True"
+             BackgroundImageSource="bg5.png"
+             >
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image Source="logo.png"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Label Text="   | Registro"
+                   TextColor="White"
+                   FontSize="Large"
+                   VerticalTextAlignment="Center"/>
+        </StackLayout>
+    </Shell.TitleView>
+
     <ContentPage.Content>
-        <StackLayout Padding="20,0,20,0">
-            <!--<ScrollView>
-                <StackLayout>-->
-                    <Label Text="Registro" FontSize="Title"></Label>
+
+        <StackLayout Padding="20,20,20,0">
+            <Frame Margin="8"
+                    CornerRadius="12"
+                   BackgroundColor="#22A3BF">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                    </Grid.RowDefinitions>
                     <Entry
                         VerticalOptions="Center"
                         HorizontalOptions="FillAndExpand"
                         IsPassword="False"
                         Placeholder="Nombre"
-                        PlaceholderColor="Gray"
+                        PlaceholderColor="#025274"
                         TextColor="Black"
                         Text="{Binding Name}"
                         FontAttributes="Bold"
                         FontSize="Caption"
                         x:Name="name"
+                        
                      />
                     <Entry
                         VerticalOptions="Center"
                         HorizontalOptions="FillAndExpand"
                         IsPassword="False"
                         Placeholder="e-mail"
-                        PlaceholderColor="Gray"
+                        PlaceholderColor="#025274"
                         TextColor="Black"
                         Text="{Binding Email}"
                         FontAttributes="Bold"
                         FontSize="Caption"
                         x:Name="email"
+                        Grid.Row="1"
                      />
                     <Entry
                         VerticalOptions="Center"
                         HorizontalOptions="FillAndExpand"
                         IsPassword="True"
                         Placeholder="Contraseña"
-                        PlaceholderColor="Gray"
+                        PlaceholderColor="#025274"
                         TextColor="Black"
                         Text="{Binding Password}"
                         FontAttributes="Bold"
                         FontSize="Caption"
                         x:Name="password"
+                        Grid.Row="2"
                      />
                     <Entry
                         VerticalOptions="Center"
                         HorizontalOptions="FillAndExpand"
                         IsPassword="True"
                         Placeholder="Confirma Contraseña"
-                        PlaceholderColor="Gray"
+                        PlaceholderColor="#025274"
                         TextColor="Black"
                         Text="{Binding PasswordConfirmation}"
                         FontAttributes="Bold"
                         FontSize="Caption"
                         x:Name="repass"
+                        Grid.Row="3"
                      />
-                <!--</StackLayout>
-            </ScrollView>-->
             <Button Text="Registrar"
                         Command="{Binding RegisterUserCommand}"
-                        BackgroundColor="DarkRed"
-                        TextColor="White"
-                        FontAttributes="Bold">
+                        Margin="30,0,30,0"
+                            CornerRadius="12"
+                            BackgroundColor="White"
+                            FontAttributes="Bold"
+                            TextColor="#025274"
+                    Grid.Row="4">
             </Button>
+                    </Grid>
+                </Frame>
              <Label Text="Volver"
                    x:Name="Back"
-                   TextColor="Blue"
+                   TextColor="White"
+                    FontAttributes="Bold"
                    Margin="20"
                    HorizontalTextAlignment="Center"
                    TextDecorations="Underline">

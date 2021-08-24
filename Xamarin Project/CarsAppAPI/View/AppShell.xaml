@@ -8,97 +8,106 @@
     x:Class="CarsAppAPI.View.AppShell"
     mc:Ignorable="d"
     FlyoutHeaderBehavior="CollapseOnScroll"  
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutBackgroundImage="bg6.png">
 
     <Shell.Resources>
-        <Style x:Key="BaseStyle"
-               TargetType="Element">
+        <Style TargetType="ShellItem">
             <Setter Property="Shell.BackgroundColor"
-                    Value="#33333D"/>
-            <Setter Property="Shell.DisabledColor"
-                    Value="#B4FFFFFF"/>
+                    Value="#025274"/>
             <Setter Property="Shell.ForegroundColor"
                     Value="White"/>
-            <!--<Setter Property="Shell.TitleColor"
-                    Value="White"/>-->
+            <Setter Property="Shell.DisabledColor"
+                    Value="Green"/>
             <Setter Property="Shell.UnselectedColor"
-                    Value="#95FFFFFF"/>
+                    Value="Red"/>
         </Style>
-
-        <!-- cambiar por shellItem o dejar FlyoutItem-->
-        <Style TargetType="ShellItem" 
-               BasedOn="{StaticResource BaseStyle}">
-               <Setter
-                   Property="Shell.TitleColor"
-                   Value="#C18E68"/>
-        </Style>
-        <Style x:Key="FoodStyle"
-               TargetType="Element"
-               BasedOn="{StaticResource BaseStyle}">
+        <Style TargetType="TabBar">
             <Setter Property="Shell.BackgroundColor"
-                    Value="DarkRed"/>
+                    Value="#025273"/>
+            <Setter Property="Shell.ForegroundColor"
+                    Value="White"/>
         </Style>
-        <Style x:Key="PastaStyle"
-               TargetType="Element"
-               BasedOn="{StaticResource BaseStyle}">
-            <Setter Property="Shell.BackgroundColor"
-                    Value="Gold"/>
+        
+        <Style x:Key="FloutItemStyle" TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="White"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
         </Style>
     </Shell.Resources>
 
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
-            <Grid BackgroundColor="Black">
+            <Grid BackgroundColor="Black" >
                 <Image Aspect="AspectFill"
-                       Source="1.png"
+                       Source="logo.png"
                        Opacity="0.6"/>
                 <Label Text="Finden MX"
                        TextColor="White"
                        FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
                        VerticalTextAlignment="Center"
-                       FontSize="Large"
-                       />
+                       FontSize="Large"/>
             </Grid>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
-    <!--<ShellItem Route="LoginPage"
-               Title="Login"
-               Shell.FlyoutBehavior="Disabled">
-        <ShellContent ContentTemplate="{DataTemplate local:login}"/>
-    </ShellItem>-->
+
+    <Shell.ItemTemplate>
+        <DataTemplate >
+            <Grid Style="{StaticResource FloutItemStyle}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*" />
+                    <ColumnDefinition Width="0.8*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding FlyoutIcon}"
+                        Margin="5"
+                        HeightRequest="45" />
+                <Label Grid.Column="1"
+                        Text="{Binding Title}"
+                        FontAttributes="None"
+                        VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
 
     <!-- QUE ES TAB BAR? -->
     <TabBar>
-        <ShellContent Route="StartupPage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate local:StartupPage}" />
+        <ShellContent Route="StartupPage"
+                      Shell.FlyoutBehavior="Disabled"
+                      ContentTemplate="{DataTemplate local:StartupPage}" />
     </TabBar>
 
-    <ShellItem Route="InitialPage"
+    <!--<ShellItem Route="InitialPage"
                Title="Inicio"
                >
         <ShellContent ContentTemplate="{DataTemplate local:InitialPage}"/>
-    </ShellItem>
+    </ShellItem>-->
     <ShellItem Route="Select"
                Title="Encuentra tu auto">
         <ShellContent ContentTemplate="{DataTemplate local:Select}"/>
     </ShellItem>
-    <MenuItem Text="Salir"  Clicked="OnLogOutClicked">
+    <ShellItem Route="SearchResults"
+               Title="Mis búsquedas">
+        <ShellContent ContentTemplate="{DataTemplate local:SearchResults}"/>
+    </ShellItem>
+    
+    <MenuItem Text="Salir"
+              Clicked="OnLogOutClicked">
     </MenuItem>
-
-    <!--<FlyoutItem Title="Registro"
-                Route="places"
-                >
-         <ShellContent Title="Register"
-                          ContentTemplate="{DataTemplate local:RegisterUser}"
-                          Route="RegisterUser">
-         </ShellContent>
-    </FlyoutItem>-->
-
     <TabBar>
-        <ShellContent Route="Login"
-                  Shell.FlyoutBehavior="Disabled"
-                  ContentTemplate="{DataTemplate local:Login}"/>
+        <ShellContent  Route="Login"
+                       Shell.FlyoutBehavior="Disabled"
+                       ContentTemplate="{DataTemplate local:Login}"/>
     </TabBar>
     <TabBar>
         <ShellContent Route="RegisterUser"

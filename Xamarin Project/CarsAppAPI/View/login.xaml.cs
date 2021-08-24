@@ -30,7 +30,7 @@ namespace CarsAppAPI.View
             await objMainVM.LoginGuest();
             UserDialogs.Instance.HideLoading();
             //Indicator.IsRunning = false;
-            await Shell.Current.GoToAsync($"//{nameof(InitialPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(Select)}");
         }
         protected override void OnAppearing()
         {
