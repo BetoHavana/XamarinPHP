@@ -25,6 +25,7 @@ namespace CarsAppAPI.View
             email.Text = "";
             password.Text = "";
             repass.Text = "";
+            lastname.Text = "";
         }
         protected override void OnAppearing()
         {
@@ -32,6 +33,7 @@ namespace CarsAppAPI.View
             email.Text = "";
             password.Text = "";
             repass.Text = "";
+            lastname.Text = "";
         }
         private async void BackLogin(object sender, EventArgs e)
         {

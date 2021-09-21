@@ -21,45 +21,64 @@
         </Shell.TitleView>
         <ContentPage.Content>
                 <StackLayout Padding="10,20,10,0" >
-                    <Button Text="Añadir Tarjeta"
-                            BackgroundColor="White"
-                            TextColor="#025274"
-                            Margin="50,5,50,5"
-                            FontAttributes="Bold"
-                            CornerRadius="12"
-                            Command="{Binding AddCardCommand}"></Button>
-                    <ScrollView BackgroundColor="Transparent">
+                    
+                    <ScrollView BackgroundColor="Transparent"
+                                Margin="0,0,0,0"
+                                Padding="0,20,0,0"
+                                HeightRequest="500">
                         <Frame Margin="8"
                                CornerRadius="12"
                                BackgroundColor="#22A3BF"
-                               Opacity="10">
+                               Padding="20,10,20,0"
+                               Opacity="10"
+                               HeightRequest="400">
                         <ListView x:Name="CardsListx"
                                   ItemsSource="{Binding CardsList.cards}" 
-                                  Header="Tus tarjetas"
                                   VerticalOptions="Center"
                                   Footer="" 
                                   RowHeight="30"
                                   BackgroundColor="Transparent">
+                                <ListView.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                            <ColumnDefinition Width="80"></ColumnDefinition>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label FontSize="Medium" FontAttributes="Bold" TextColor="White" Text="Número"></Label>
+                                        <Label FontSize="Medium" FontAttributes="Bold" TextColor="White" Text="Banco" Grid.Column="1" ></Label>
+                                        <Label FontSize="Medium" FontAttributes="Bold" TextColor="White" Text="Opciones" Grid.Column="2" ></Label>
+                                    </Grid>
+                                </ListView.Header>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
                                             <ViewCell.View>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width=".8*"></ColumnDefinition>
-                                                        <ColumnDefinition></ColumnDefinition>
-                                                        <ColumnDefinition></ColumnDefinition>
-                                                        <ColumnDefinition></ColumnDefinition>
+                                                        <ColumnDefinition Width="100"></ColumnDefinition>
+                                                        <ColumnDefinition Width="80"></ColumnDefinition>
+                                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                                        <ColumnDefinition Width="50"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <Label TextColor="White" Text="{Binding id}"></Label>
-                                                    <Label TextColor="White" Text="{Binding card_number}"  Grid.Column="1"></Label>
-                                                    <Label TextColor="White" Text="{Binding bank_name}" Grid.Column="2"></Label>
+                                                    <!--<Label FontSize="Small" TextColor="White" Text="{Binding id}"></Label>-->
+                                                    <Label FontSize="Small" TextColor="White" Text="{Binding card_number}" ></Label>
+                                                    <Label FontSize="Small" TextColor="White" Text="{Binding bank_name}" Grid.Column="1"></Label>
                                                     <!--<Button Text="Pay" Clicked="getPaid" CommandParameter="{Binding id}" Grid.Column="3"></Button>-->
                                                     <Button Text="Pagar"
                                                             Command="{Binding Path = BindingContext.PostPaymentCommand,
                                                             Source={x:Reference CardsListx}}"
                                                             CommandParameter="{Binding id}"
                                                             BackgroundColor="#025274"
+                                                            TextColor="white"
+                                                            Margin="0,5,0,5"
+                                                            Grid.Column="2">
+                                                    </Button>
+                                                    <Button Text="Borrar"
+                                                            Command="{Binding Path = BindingContext.DeleteCardsCommand,
+                                                            Source={x:Reference CardsListx},Mode=TwoWay}"
+                                                            CommandParameter="{Binding id}"
+                                                            BackgroundColor="Red"
                                                             TextColor="white"
                                                             Margin="0,5,0,5"
                                                             Grid.Column="3">
@@ -70,16 +89,36 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            </Frame>
+                            
+                         </Frame>
                      </ScrollView>
-                    <Button Text="Volver"
+                    <Button Text="Añadir Tarjeta"
+                            BackgroundColor="White"
+                            TextColor="#025274"
+                            Margin="50,5,50,5"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            Command="{Binding AddCardCommand}">
+                    </Button>
+                    <!--<Button Text="Volver"
                             Command="{Binding Back2SelectCommand}"
                             Margin="50,5,50,5"
                             CornerRadius="12"
                             BackgroundColor="White"
                             FontAttributes="Bold"
                             TextColor="#025274">
-                    </Button>
+                    </Button>-->
+                    <Label Text="Volver"
+                           x:Name="RegistrationBtn"
+                           TextColor="Black"
+                           Margin="20"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"
+                           TextDecorations="Underline">
+                           <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Back2Select"/>
+                           </Label.GestureRecognizers>
+                    </Label>
                 </StackLayout>
         </ContentPage.Content>
     </ContentPage>

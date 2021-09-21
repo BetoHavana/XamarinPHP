@@ -17,7 +17,9 @@
                    VerticalTextAlignment="Center"/>
         </StackLayout>
     </Shell.TitleView>
-
+    <ContentPage.BindingContext>
+        <viewModel:RegisterViewModel></viewModel:RegisterViewModel>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
 
         <StackLayout Padding="20,20,20,0">
@@ -26,6 +28,7 @@
                    BackgroundColor="#22A3BF">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
                         <RowDefinition ></RowDefinition>
                         <RowDefinition ></RowDefinition>
                         <RowDefinition ></RowDefinition>
@@ -49,6 +52,19 @@
                         VerticalOptions="Center"
                         HorizontalOptions="FillAndExpand"
                         IsPassword="False"
+                        Placeholder="Apellido"
+                        PlaceholderColor="#025274"
+                        TextColor="Black"
+                        Text="{Binding Lastname }"
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        x:Name="lastname"
+                        Grid.Row="1"
+                     />
+                    <Entry
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="False"
                         Placeholder="e-mail"
                         PlaceholderColor="#025274"
                         TextColor="Black"
@@ -56,7 +72,7 @@
                         FontAttributes="Bold"
                         FontSize="Caption"
                         x:Name="email"
-                        Grid.Row="1"
+                        Grid.Row="2"
                      />
                     <Entry
                         VerticalOptions="Center"
@@ -69,7 +85,7 @@
                         FontAttributes="Bold"
                         FontSize="Caption"
                         x:Name="password"
-                        Grid.Row="2"
+                        Grid.Row="3"
                      />
                     <Entry
                         VerticalOptions="Center"
@@ -82,7 +98,7 @@
                         FontAttributes="Bold"
                         FontSize="Caption"
                         x:Name="repass"
-                        Grid.Row="3"
+                        Grid.Row="4"
                      />
             <Button Text="Registrar"
                         Command="{Binding RegisterUserCommand}"
@@ -91,7 +107,7 @@
                             BackgroundColor="White"
                             FontAttributes="Bold"
                             TextColor="#025274"
-                    Grid.Row="4">
+                    Grid.Row="5">
             </Button>
                     </Grid>
                 </Frame>

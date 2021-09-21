@@ -11,12 +11,17 @@ namespace CarsAppAPI.View
         {
             InitializeComponent();
         }
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             name.Text = "";
             number.Text = "";
             year.Text = "";
             month.Text = "";
+            cvv.Text = "";
+        }
+        private async void Back2PaymentOptions(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"//{nameof(PaymentOptions)}");
         }
     }
 }

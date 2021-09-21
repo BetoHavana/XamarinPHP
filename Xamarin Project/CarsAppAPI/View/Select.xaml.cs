@@ -1,29 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CarsAppAPI.Models;
 using CarsAppAPI.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace CarsAppAPI.View
 {
-    public partial class Select : ContentPage
+    public partial class Select : ContentPage, INotifyPropertyChanged
     {
         public bool showList = false;
+        MainViewModel objMVM = new MainViewModel();
+        public event PropertyChangedEventHandler PropertyChanged2;
+
+        public void RaisePropetyChanged2([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged2?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private AutoModel listaAuto2;
+        public AutoModel ListaAuto2
+        {
+            get { return listaAuto2; }
+            set { listaAuto2 = value; RaisePropetyChanged2(); }
+        }
         public Select()
         {
             InitializeComponent();
+            BindingContext = objMVM;
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
             Console.WriteLine("*****OnSelect ");
-            MainViewModel objMVM = new MainViewModel();
+            
             modelo.Text = "";
             placa.Text = "";
             
@@ -31,9 +42,12 @@ namespace CarsAppAPI.View
             {
                 layout.IsVisible = true;
                 objMVM.ShowCarR = true;
-                var json = Preferences.Get("carresponse","default_value");
+                /*var json = Preferences.Get("carresponse","default_value");
                 Console.WriteLine("***** JSON "+json);
-                objMVM.ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
+                ListaAuto2 = JsonConvert.DeserializeObject<AutoModel>(json);
+                objMVM.Placa = ListaAuto2.car.license_plate;
+                await objMVM.GetAutoById();*/
+                StaticConstants.showCarResponse = false;
             }
             else
             {

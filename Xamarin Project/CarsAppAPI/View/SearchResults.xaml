@@ -3,7 +3,11 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CarsAppAPI.View.SearchResults"
+    xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
     BackgroundImageSource="bg6.png">
+    <ContentPage.BindingContext>
+        <viewModel:PaidCarsViewModel></viewModel:PaidCarsViewModel>
+    </ContentPage.BindingContext>
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal">
             <Image Source="logo.png"
@@ -16,8 +20,58 @@
         </StackLayout>
     </Shell.TitleView>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="HELLOW"></Label>
+
+        <StackLayout Padding="10,20,10,0" >
+            <ScrollView BackgroundColor="Transparent"
+                        Padding="0,20,0,0"
+                        HeightRequest="700">
+                <Frame Margin="8"
+                               CornerRadius="12"
+                               BackgroundColor="#22A3BF"
+                               Opacity="10"
+                       HeightRequest="400">
+
+                    <ListView x:Name="CardsListx"
+                                  ItemsSource="{Binding PaidCarsList.payments}" 
+                                 
+                                  VerticalOptions="Center"
+                                  Footer="" 
+                                  RowHeight="30"
+                                  BackgroundColor="Transparent">
+                        <ListView.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label FontSize="Small" FontAttributes="Bold" TextColor="White" Text="Placa"></Label>
+                                <Label FontSize="Small" FontAttributes="Bold" TextColor="White" Text="Fecha búsqueda" Grid.Column="1" ></Label>
+                                <Label FontSize="Small" FontAttributes="Bold" TextColor="White" Text="Contacto Corralon" Grid.Column="2"></Label>
+                            </Grid>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label FontSize="Small" TextColor="White" Text="{Binding car_payment_info.license_plate}"></Label>
+                                            <Label FontSize="Small" TextColor="White" Text="{Binding payment_info.created_at}" Grid.Column="1" ></Label>
+                                            <Label FontSize="Small" TextColor="White" Text="{Binding corralon_info.name}" Grid.Column="2"></Label>
+                                        </Grid>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Frame>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -5,9 +5,9 @@
     x:Class="CarsAppAPI.View.AddCard"
     xmlns:viewModel="clr-namespace:CarsAppAPI.ViewModels"
     BackgroundImageSource="bg5.png">
-        <ContentPage.BindingContext>
-           <viewModel:PaymentViewModel></viewModel:PaymentViewModel>
-        </ContentPage.BindingContext>
+    <ContentPage.BindingContext>
+        <viewModel:PaymentViewModel></viewModel:PaymentViewModel>
+    </ContentPage.BindingContext>
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal">
             <Image Source="logo.png"
@@ -19,13 +19,13 @@
                    VerticalTextAlignment="Center"/>
         </StackLayout>
     </Shell.TitleView>
-        <ContentPage.Content>
-            <ScrollView>
-                <StackLayout Padding="20,20,20,0">
-                  <Frame Margin="8"
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20,20,20,0">
+                <Frame Margin="8"
                          CornerRadius="12"
                          BackgroundColor="#22A3BF">
-                      <Grid>
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height=".8*"></RowDefinition>
                             <RowDefinition ></RowDefinition>
@@ -34,7 +34,7 @@
                             <RowDefinition ></RowDefinition>
                             <RowDefinition ></RowDefinition>
                         </Grid.RowDefinitions>
-                            <Entry
+                        <Entry
                                 VerticalOptions="Center"
                                 HorizontalOptions="FillAndExpand"
                                 Placeholder="Nombre en tarjeta"
@@ -46,7 +46,7 @@
                                 x:Name="name"
                                 
                              />
-                            <Entry
+                        <Entry
                                 VerticalOptions="Center"
                                 HorizontalOptions="FillAndExpand"
                                 IsPassword="False"
@@ -59,7 +59,7 @@
                                 x:Name="number"
                                 Grid.Row="1"
                              />
-                            <Entry
+                        <Entry
                                 VerticalOptions="Center"
                                 HorizontalOptions="FillAndExpand"
                                 IsPassword="False"
@@ -70,34 +70,37 @@
                                 FontAttributes="Bold"
                                 FontSize="Caption"
                                 Grid.Row="2"
+                                x:Name="cvv"
                              />
-                            <Entry
+                        <Entry
                                 VerticalOptions="Center"
                                 HorizontalOptions="FillAndExpand"
                                 IsPassword="False"
-                                Placeholder="Mes de expiración"
+                                Placeholder="Mes vencimiento"
                                 PlaceholderColor="#025274"
                                 TextColor="Black"
+                                MaxLength="2"
                                 Text="{Binding ExpMonth}"
                                 FontAttributes="Bold"
                                 FontSize="Caption"
                                 x:Name="month"
                                 Grid.Row="3"
                              />
-                            <Entry
+                        <Entry
                                 VerticalOptions="Center"
                                 HorizontalOptions="FillAndExpand"
                                 IsPassword="False"
-                                Placeholder="Año de expiración"
+                                Placeholder="Año vencimiento"
                                 PlaceholderColor="#025274"
                                 TextColor="Black"
+                                MaxLength="2"
                                 Text="{Binding ExpYear}"
                                 FontAttributes="Bold"
                                 FontSize="Caption"
                                 x:Name="year"
                                 Grid.Row="4"
                              />
-                          <Button Text="Añadir Tarjeta"
+                        <Button Text="Añadir Tarjeta"
                              Command="{Binding PostAddCardCommand}"
                              Margin="50,0,50,0"
                             CornerRadius="12"
@@ -105,19 +108,21 @@
                             FontAttributes="Bold"
                             TextColor="#025274"
                                   Grid.Row="5">
-                            </Button>
-                          </Grid>
-                   </Frame>
-                     
-                     <Button Text="Volver"
-                             Command="{Binding BackCommand}"
-                             Margin="50,5,50,5"
-                            CornerRadius="12"
-                            BackgroundColor="White"
-                            FontAttributes="Bold"
-                            TextColor="#025274"></Button>
-                    </StackLayout>
-
-            </ScrollView>
-        </ContentPage.Content>
+                        </Button>
+                    </Grid>
+                </Frame>
+                <Label Text="Volver"
+                           x:Name="backBTN"
+                           TextColor="Black"
+                           Margin="20"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"
+                           TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Back2PaymentOptions"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
 </ContentPage>

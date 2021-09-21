@@ -66,36 +66,28 @@
                     </Button>
                 </Grid>
             </Frame>
-            <ScrollView BackgroundColor="Transparent">
-                <StackLayout x:Name="layout"
-                             BackgroundColor="Transparent">
+            <ScrollView>
+                <StackLayout x:Name="layout">
                     <Label Text="Información obtenida"
                            FontSize="Medium"
                            HorizontalTextAlignment="Center"></Label>
-                    <Frame Margin="8"
+                     <Frame Margin="8"
                            CornerRadius="12"
                            BackgroundColor="#22A3BF">
-
-                    <ListView ItemsSource="{Binding ListaAuto.car}" 
-                              RowHeight="30"
-                              BackgroundColor="Transparent">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <ViewCell.View>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-                                            <Label TextColor="White" Text="{Binding license_plate}"  ></Label>
-                                            <Label TextColor="White" Text="{Binding model}"  Grid.Column="1"></Label>
-                                        </Grid>
-                                    </ViewCell.View>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                         <Grid.RowDefinitions>
+                             <RowDefinition></RowDefinition>
+                             <RowDefinition></RowDefinition>
+                         </Grid.RowDefinitions>
+                         <Label Text="PLACA" TextColor="White" ></Label>
+                         <Label Text="MODELO" TextColor="White" Grid.Column="1" ></Label>
+                         <Label TextColor="White" Text="{Binding ListaAuto.car.license_plate}"  Grid.Row="2"></Label>
+                         <Label TextColor="White" Text="{Binding ListaAuto.car.model}"  Grid.Column="1" Grid.Row="2"></Label>
+                     </Grid>
                     </Frame>
 
                     <!--<ListView ItemsSource="{Binding ListaAuto.cars_pagination.data}" 

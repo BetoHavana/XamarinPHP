@@ -22,5 +22,10 @@ namespace CarsAppAPI.View
 
             await payment.GetCards();
         }
+
+        private async void Back2Select(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"//{nameof(Select)}");
+        }
     }
 }

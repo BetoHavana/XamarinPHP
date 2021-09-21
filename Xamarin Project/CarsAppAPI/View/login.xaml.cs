@@ -9,7 +9,7 @@ namespace CarsAppAPI.View
 {
     public partial class Login : ContentPage
     {
-        ActivityIndicator activityIndicator;
+        //ActivityIndicator activityIndicator;
         public Login()
         {
             InitializeComponent();

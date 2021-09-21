@@ -13,6 +13,9 @@ using Xamarin.Essentials;
 using Newtonsoft.Json;
 using CarsAppAPI.View;
 using Acr.UserDialogs;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 
 namespace CarsAppAPI.ViewModels
 {
@@ -27,12 +30,12 @@ namespace CarsAppAPI.ViewModels
         }
 
         Uri urlBase = new Uri(StaticConstants.UrlBase);
-
         #region constructors
         public MainViewModel()
         {
+            
             //ListaAuto = new AutoModel();
-            ConsultaListaAutosGetCommand = new Command(async () => { await ConsultaListaAutosGet(); });
+            //ConsultaListaAutosGetCommand = new Command(async () => { await ConsultaListaAutosGet(); });
             /*ConsultaListaAutosPostCommand = new Command(async () => await ConsultaListaAutosPost());
             ConsultaListaAutosPutCommand = new Command(async () => await ConsultaListaAutosPut());
             ConsultaListaAutosDeleteCommand = new Command(async () => await ConsultaListaAutosDelete());*/
@@ -55,13 +58,6 @@ namespace CarsAppAPI.ViewModels
         {
             get { return listaAuto; }
             set { listaAuto = value; RaisePropetyChanged(); }
-        }
-
-        private ObservableCollection<LoginModel> listaAutos;
-        public ObservableCollection<LoginModel> ListaAutos
-        {
-            get { return listaAutos; }
-            set { listaAutos = value; RaisePropetyChanged(); }
         }
 
         private string user;
@@ -167,7 +163,7 @@ namespace CarsAppAPI.ViewModels
                 UserDialogs.Instance.HideLoading();
 
                 await App.Current.MainPage.DisplayAlert("Usuario no encontrado", "verifica" +
-                    " tu usuario y contraseña", "Ok");
+                    " tu usuario y contraseña", "Aceptar");
             }
         }
 
@@ -196,13 +192,14 @@ namespace CarsAppAPI.ViewModels
             else
             {
                 await App.Current.MainPage.DisplayAlert("Usuario no encontrado", "Verifica tu usuario " +
-                    "y contraseña", "Ok");
+                    "y contraseña", "Aceptar");
             }
         }
         #endregion
 
         #region GetMethods
-        public ICommand ConsultaListaAutosGetCommand { get; set; }
+
+        /*public ICommand ConsultaListaAutosGetCommand { get; set; }
         public async Task ConsultaListaAutosGet()
         {
             UserDialogs.Instance.ShowLoading("Busqueda");
@@ -232,39 +229,81 @@ namespace CarsAppAPI.ViewModels
             {
                 UserDialogs.Instance.HideLoading();
             }
-        }
+        }*/
 
         public ICommand GetAutoByIdCommand { get; set; }
         public async Task GetAutoById()
         {
-            UserDialogs.Instance.ShowLoading("Busqueda");
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + StaticConstants.Token);
-            var response = await client.GetAsync(StaticConstants.UrlBase +
-                StaticConstants.GetCarsByIdEndpoint + Placa);
-            Console.WriteLine("Codigo: " + response.IsSuccessStatusCode);
-            if (response.IsSuccessStatusCode)
+            if (Placa != null && Placa != "")
             {
-                UserDialogs.Instance.HideLoading();
-                bool res = await App.Current.MainPage.DisplayAlert("Auto localizado",
-                    "Para continuar al pago presione Pagar", "Pagar", "no pagar");
+                PaidCarsViewModel objPCVM = new PaidCarsViewModel();
+                await objPCVM.carWasFound();
+                MyPaidCarsModel customObj = StaticConstants.objCarsPaid;
+                Console.WriteLine(" lista  " + customObj);
+                bool plateIsPaid = false;
+                if (customObj != null)
+                {
+                    foreach (var obj in customObj.payments)
+                    {
+                        if (obj.car_payment_info.license_plate.ToString() == Placa)
+                        {
+                            Console.WriteLine(" Plate  " + obj.car_payment_info.license_plate.ToString());
+                            Console.WriteLine(" current plate  " + placa);
+                            plateIsPaid = true;
+                            break;
+                        }
+                    }
+                }
+                if (plateIsPaid == false)
+                {
+                    UserDialogs.Instance.ShowLoading("Buscando");
+                    HttpClient client = new HttpClient();
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + StaticConstants.Token);
+                    var response = await client.GetAsync(StaticConstants.UrlBase +
+                    StaticConstants.GetCarsByIdEndpoint + Placa);
+                    Console.WriteLine("Codigo: " + response.IsSuccessStatusCode);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        bool res = await App.Current.MainPage.DisplayAlert("Auto localizado",
+                           "¿Desea continuar? costo de búsqueda $100 MXN", "Aceptar", "Cancelar");
 
-                if (res && StaticConstants.isLogged)
-                {
-                    await Shell.Current.GoToAsync($"//{nameof(PaymentOptions)}");
-                    var json = await response.Content.ReadAsStringAsync();
-                    Preferences.Set("carresponse", json);
-                    Console.WriteLine("List of cars: " + json);
-                    ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
+                        if (res && StaticConstants.isLogged)
+                        {
+                            var json = await response.Content.ReadAsStringAsync();
+                            Preferences.Set("carresponse", json);
+                            Console.WriteLine("List of cars: " + json);
+                            ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
+                            StaticConstants.currentPlate = ListaAuto.car.license_plate;
+                            await Shell.Current.GoToAsync($"//{nameof(PaymentOptions)}");
+                        }
+                        else if (res && !StaticConstants.isLogged)
+                        {
+                            var json = await response.Content.ReadAsStringAsync();
+                            Preferences.Set("carresponse", json);
+                            ListaAuto = JsonConvert.DeserializeObject<AutoModel>(json);
+                            StaticConstants.currentPlate = ListaAuto.car.license_plate;
+                            await Shell.Current.GoToAsync($"//{nameof(RegisterUser)}");
+                        }
+                    }
+                    else
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        await App.Current.MainPage.DisplayAlert("Auto no localizado",
+                            "revisa que la información sea correcta", "Aceptar");
+                    }
                 }
-                else if (res && !StaticConstants.isLogged)
+                else
                 {
-                    await Shell.Current.GoToAsync($"//{nameof(RegisterUser)}");
+                    await App.Current.MainPage.DisplayAlert("Ya haz buscado este auto, ve a mis búsquedas", "", "Aceptar");
                 }
-            } else
-            {
-                UserDialogs.Instance.HideLoading();
             }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Llena todos los campos para la búsqueda", "", "Aceptar");
+            }
+
+
         }
         #endregion
 

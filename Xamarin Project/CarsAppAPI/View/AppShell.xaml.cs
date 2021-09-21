@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CarsAppAPI.Models;
 using CarsAppAPI.View;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,9 +10,11 @@ namespace CarsAppAPI.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AppShell : Shell
     {
+        public static bool showMycars = false;
         public AppShell()
         {
             InitializeComponent();
+            
         }
 
         /*protected override async void OnNavigated(ShellNavigatedEventArgs args)

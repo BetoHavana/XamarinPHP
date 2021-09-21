@@ -5,8 +5,13 @@
     x:Class="CarsAppAPI.View.StartupPage"
     Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center">
+        <StackLayout VerticalOptions="Center"
+                     >
             <ActivityIndicator IsRunning="True" />
+            <Image Aspect="AspectFill"
+                       Source="logo.png"
+                       Opacity="0.6"
+                       Scale="1"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

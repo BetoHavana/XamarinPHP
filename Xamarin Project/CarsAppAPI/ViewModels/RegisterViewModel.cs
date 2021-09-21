@@ -57,6 +57,12 @@ namespace CarsAppAPI.ViewModels
             get { return password; }
             set { password = value; RaisePropetyChanged(); }
         }
+        private string lastname;
+        public string Lastname
+        {
+            get { return lastname; }
+            set { lastname = value; RaisePropetyChanged(); }
+        }
 
         private RegisterModel listaRegistro;
         public RegisterModel ListaRegistro
@@ -88,7 +94,12 @@ namespace CarsAppAPI.ViewModels
             {
                 if (Password == PasswordConfirmation)
                 {
-                    var paramsPost = new { name = Name, email = Email, password = Password, password_confirmation = PasswordConfirmation };
+                    var paramsPost = new { name = Name,
+                                           last_name = Lastname,
+                                           email = Email,
+                                           password = Password,
+                                           password_confirmation = PasswordConfirmation,
+                                        };
 
                     HttpClient client = new HttpClient();
                     Console.WriteLine("My Token " + StaticConstants.Token);
@@ -107,7 +118,7 @@ namespace CarsAppAPI.ViewModels
                         ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
                         RegisterUser RU = new RegisterUser();
                         RU.cleanForm();
-                        await App.Current.MainPage.DisplayAlert("Registered", "", "ok");
+                        await App.Current.MainPage.DisplayAlert("Registrado", "", "Aceptar");
                         if (StaticConstants.isLogged == false)
                         {
                             MainViewModel objMVM = new MainViewModel();
@@ -115,7 +126,7 @@ namespace CarsAppAPI.ViewModels
                             objMVM.Password = Password;
                             StaticConstants.isRegisteredFromGuest = true;
                             await objMVM.Login();
-                            
+                            StaticConstants.isRegisteredFromGuest = false;
                             await Shell.Current.GoToAsync($"//{nameof(PaymentOptions)}");
                         }
                         UserDialogs.Instance.HideLoading();
@@ -126,19 +137,38 @@ namespace CarsAppAPI.ViewModels
                         var json = await response.Content.ReadAsStringAsync();
                         Console.WriteLine("422 Register " + json);
                         ListaRegistro = JsonConvert.DeserializeObject<RegisterModel>(json);
-                        await App.Current.MainPage.DisplayAlert("An error ocurred", "", "ok");
+                        if (ListaRegistro.errors.name != null)
+                        {
+                            Console.WriteLine("Lista Registro " + ListaRegistro.errors.name[0]);
+                            await App.Current.MainPage.DisplayAlert("Ocurrió un error",
+                            "Verifica tu nombre", "Cerrar");
+                        }
+                        if (ListaRegistro.errors.email != null)
+                        {
+                            Console.WriteLine("Lista Registro " + ListaRegistro.errors.email[0]);
+                            await App.Current.MainPage.DisplayAlert("Ocurrió un error",
+                            "Verifica tu correo con este formato example@example.com", "Cerrar");
+                            
+                        }
+                        if (ListaRegistro.errors.password != null)
+                        {
+                            Console.WriteLine("Lista Registro " + ListaRegistro.errors.password[0]);
+                            await App.Current.MainPage.DisplayAlert("Ocurrió un error",
+                            "La contraseña debe tener 8 caracteres, mayúsculas, minúsculas y al menos un carácter especial !#$%&/().,", "Cerrar");
+                        }
+
                     }
                 }
                 else
                 {
                     UserDialogs.Instance.HideLoading();
-                    await App.Current.MainPage.DisplayAlert("Las contraseñas no coinciden", "", "ok");
+                    await App.Current.MainPage.DisplayAlert("Las contraseñas no coinciden", "", "Cerrar");
                 }
             }
             else
             {
                 UserDialogs.Instance.HideLoading();
-                await App.Current.MainPage.DisplayAlert("Llena todos los campos", "", "ok");
+                await App.Current.MainPage.DisplayAlert("Llena todos los campos", "", "Cerrar");
             }
         }
     }

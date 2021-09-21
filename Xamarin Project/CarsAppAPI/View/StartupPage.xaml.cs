@@ -16,11 +16,11 @@ namespace CarsAppAPI.View
         {
             InitializeComponent();
         }
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            CheckLogin();
+            await CheckLogin();
         }
 
         private async Task CheckLogin()
